@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+  <link rel="icon" href="https://cdn.jsdelivr.net/npm/@bootcss/v3.bootcss.com@1.0.12/favicon.ico">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js" crossorigin="anonymous"></script>
+
+  <script>if (window.module) module = window.module;</script>
+  <link rel="stylesheet" type="text/css" href="./css.css" />
+  <title>Desktop Schedule</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="course_list" id="course_list"></div>
+    <div class="actions" id="actions">
+      <a id="closeButton" href="">Close</a>
+      <p>&nbsp;|&nbsp;</p>
+      <a href="https://hub.fastgit.org/" target="_blank">GitHub</a>
+    </div>
+  </div>
+
+  <!-- You can also require other files to run in this process -->
+
+  <script src="./renderer.js"></script>
+</body>
+
+</html>
