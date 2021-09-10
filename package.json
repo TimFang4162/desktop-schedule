@@ -17,9 +17,7 @@
   ],
   "author": "GitHub",
   "license": "CC0-1.0",
-  "devDependencies": {
-    "electron": "^14.0.0"
-  },
+  "devDependencies": {},
   "dependencies": {
     "fs": "^0.0.1-security"
   }

@@ -22,6 +22,10 @@ a {
     color: #ddd;
 }
 
+audio {
+    width: 170px;
+}
+
 .course_list {}
 
 .courses {
