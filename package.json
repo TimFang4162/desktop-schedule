@@ -1,24 +1,22 @@
 {
-  "name": "electron-quick-start",
+  "name": "desktop-schedule",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "A Desktop Schedule Based on Electron",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-packager ./ desktop-schedule --out ./build --overwrite"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/Tim-Fang/desktop-schedule",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "Electron"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "TimFang4162",
+  "license": "MIT",
   "devDependencies": {},
   "dependencies": {
+    "electron": "^14.0.0",
+    "electron-packager": "^15.3.0",
     "fs": "^0.0.1-security"
   }
 }
