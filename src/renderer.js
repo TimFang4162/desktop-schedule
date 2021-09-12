@@ -1,4 +1,4 @@
-// This file is required by the index.html file and will
+﻿// This file is required by the index.html file and will
 // be executed in the renderer process for that window.
 // No Node.js APIs are available in this process because
 // `nodeIntegration` is turned off. Use `preload.js` to
@@ -219,8 +219,8 @@ function getWeekDate() {
     var week = weeks[day];
     return week;
 }
-var week = getWeekDate();
-//var week = "mon";
+//var week = getWeekDate();
+var week = "mon";
 todayCourses = courses[week];
 console.log(todayCourses)
 var courseHtml = "";
@@ -234,23 +234,36 @@ for (each in todayCourses) {
 }
 $("#course_list")[0].innerHTML = courseHtml;
 
-var win_height = 824;
-var course_size = (win_height - 10 * (todayCourses.length + 1)-50) / (todayCourses.length );
-console.log(course_size)
-$(".courses").css("width", course_size/0.618);
-$(".courses").css("height", course_size);
+//var win_height = 824;
+//var course_size = (win_height - 10 * (todayCourses.length + 1)-50) / (todayCourses.length );
+//console.log(course_size)
+//$(".courses").css("width", course_size/0.618);
+//$(".courses").css("height", course_size);
 //ipc.send('resize', course_size / 0.618 + 30);
 //console.log()
-document.getElementById("closeButton").addEventListener("click", () => {
+document.getElementById("close_button").addEventListener("click", () => {
     console.log("cl");
     ipc.send('close');
     app.BrowserWindow.getFocusedWindow().close();
 }, false);
 
 
-$("html").hover(function () {
-    $("#actions").css("display", "inline-flex");
-},
-function () {
-    $("#actions").css("display", "none");
-});
+//$("html").hover(function () {
+//    $("#actions").css("display", "inline-flex");
+//},
+//function () {
+//    $("#actions").css("display", "none");
+//});
+
+var actions_dropdown_status=false;
+
+$("#actions_button").on("click",function(){
+  if(actions_dropdown_status==false) {
+     $("#dropdown_actions").css("display", "block");
+     actions_dropdown_status=true;
+  } else {
+     $("#dropdown_actions").css("display", "none");
+     actions_dropdown_status=false;
+  }
+  });
+

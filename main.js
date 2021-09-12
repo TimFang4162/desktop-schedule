@@ -14,7 +14,7 @@ function createWindow() {
   // Create the browser window.
   var winh = screen.getPrimaryDisplay().workAreaSize.height
   const mainWindow = new BrowserWindow({
-    width: 201,
+    width: 200,
     height: winh,
     x: 0,
     y: 0,
