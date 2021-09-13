@@ -11,3 +11,10 @@ p,
 a {
     margin-block-end: 0px;
 }
+.title{
+    -webkit-app-region: drag;
+    font-weight: bold;
+    padding-left: 10px;
+    background-color: #E9ECEF;
+    width: 100%;
+}

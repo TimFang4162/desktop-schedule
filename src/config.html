@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -40,25 +40,15 @@
 
     <h3>课程表</h3>
 
-    <p>点击时动作</p>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="onclickAction" id="onclickAction1" value="edit">
-      <label class="form-check-label" for="inlineRadio1">编辑课程</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="onclickAction" id="onclickAction2" value="open">
-      <label class="form-check-label" for="inlineRadio2">打开文件夹</label>
-    </div>
-
     <p>学科文件夹路径</p>
     <div class="input-group">
-      <input type="text" class="form-control" aria-label="文件夹路径">
-      <span class="input-group-text">/学科</span>
+      <input type="text" class="form-control" aria-label="文件夹路径" id="folderPath">
+      <span class="input-group-text">\学科</span>
     </div>
 
     <h3>倒计时</h3>
 
-    <p>时间</p>
+    <p>时间(尚未完成)</p>
     <div class="input-group">
       <input type="text" class="form-control" placeholder="Year" aria-label="Year">
       <span class="input-group-text">/</span>
@@ -66,6 +56,11 @@
       <span class="input-group-text">/</span>
       <input type="text" class="form-control" placeholder="Day" aria-label="Day">
     </div>
+
+    <br>
+    <button type="button" class="btn btn-primary" id="save_forever">确定</button>
+    <button type="button" class="btn btn-light" id="save_cancel">取消</button>
+
 
   </div>
 
