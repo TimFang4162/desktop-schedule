@@ -7,8 +7,11 @@ const {
   screen
 } = require('electron')
 const path = require('path')
+//var exec = require('child_process').exec;
 
 var mainWindow_g;
+
+//exec('explorer.exe "C:\\"')
 
 function createWindow() {
   // Create the browser window.

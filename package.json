@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager ./ desktop-schedule --out ./build --overwrite"
+    "build": "electron-builder"
   },
   "repository": "https://github.com/Tim-Fang/desktop-schedule",
   "keywords": [
@@ -13,10 +13,35 @@
   ],
   "author": "TimFang4162",
   "license": "MIT",
-  "devDependencies": {},
-  "dependencies": {
+  "devDependencies": {
     "electron": "^14.0.0",
-    "electron-packager": "^15.3.0",
-    "fs": "^0.0.1-security"
+    "electron-builder": "~22.10.5"
+  },
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "fs": "0.0.1-security"
+  },
+  "build": {
+    "electronDownload": {
+      "mirror": "https://npm.taobao.org/mirrors/electron/"
+    },
+    "appId": "com.timfang4162.desktop-schedule",
+    "productName": "Dektop Schedule",
+    "directories": {
+      "output": "build"
+    },
+    "win": {
+      "target": [
+        "zip",
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "allowElevation": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
   }
 }

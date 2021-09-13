@@ -1,4 +1,4 @@
-html::-webkit-scrollbar{
+html::-webkit-scrollbar {
     display: none;
 }
 
@@ -46,8 +46,7 @@ audio {
     color: #fff;
 }
 
-.course_list {
-}
+.course_list {}
 
 .courses {
     width: 100% !important;
@@ -71,4 +70,36 @@ audio {
 
 .dropdown_actions {
     background-color: #343a40aa;
+}
+
+.course_time {
+    margin-block-end: 0px;
+}
+
+.course_buttons_group {
+    display:;
+    padding-top: 0px;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.courses:hover .course_buttons_group {
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.course_buttons {
+    background: #fff0;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    color: #ddd;
+    padding: unset;
+    padding-right: 1px;
+    transition: all 0.3s ease;
+}
+
+.course_buttons:hover {
+    background: #0b367752;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
 }
