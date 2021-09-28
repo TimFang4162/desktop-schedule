@@ -5,7 +5,7 @@ var path = require("path");
 var exec = require('child_process').exec;
 var os = require("os")
 
-fs.exists(path.join(os.homedir(), "data.json"), (exists) => {
+fs.exists(path.join(os.homedir(), "./desktop-schedule-config.json"), (exists) => {
 
     if (exists) {
 
@@ -17,7 +17,7 @@ fs.exists(path.join(os.homedir(), "data.json"), (exists) => {
 
         console.log("can't find config file!");
         var data = fs.readFileSync(path.join(__dirname, "./data.json"), 'utf8');
-        fs.writeFileSync(path.join(os.homedir(), "data.json"), data.toString(), "utf8")
+        fs.writeFileSync(path.join(os.homedir(), "./desktop-schedule-config.json"), data.toString(), "utf8")
         alert("配置文件已生成。请重新加载程序")
         window.close()
 
@@ -26,12 +26,12 @@ fs.exists(path.join(os.homedir(), "data.json"), (exists) => {
 });
 
 function loadData() {
-    var data = fs.readFileSync(path.join(os.homedir(), "data.json"), 'utf8');
+    var data = fs.readFileSync(path.join(os.homedir(), "./desktop-schedule-config.json"), 'utf8');
     return JSON.parse(data.toString());
 }
 
 function saveData(data) {
-    fs.writeFileSync(path.join(os.homedir(), "data.json"), JSON.stringify(data), "utf8")
+    fs.writeFileSync(path.join(os.homedir(), "./desktop-schedule-config.json"), JSON.stringify(data), "utf8")
 }
 
 function getWeekDate() {
@@ -103,9 +103,9 @@ function addCourse() {
 
 function openFolder(id) {
     var name = todayCourses[id].name;
-    var path = data.config.folderPath + '\\' + name;
-    console.log(path);
-    exec('explorer.exe "' + path + '"')
+    var fpath = path.join(data.config.folderPath, name);
+    console.log(fpath);
+    exec('explorer.exe "' + fpath + '"')
 }
 
 function openConfig() {
