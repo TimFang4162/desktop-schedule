@@ -28,10 +28,17 @@ jobs:
         cache: 'npm'
     - run: yarn
     - run: yarn build
-    - run: tree ${{ github.workspace }}
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.3.1
       with:
         name: artifact
-        path: ./build
+        path: ./build/Dektop Schedule-*.*-win.zip
         retention-days: 0
+    - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GH_TOKEN }}
+          file: ./build/Dektop Schedule-*.*-win.zip
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
