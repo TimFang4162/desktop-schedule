@@ -15,5 +15,12 @@ yarn start
 ```bash
 yarn build
 ```
-我们已经预配置好了 electron-builder 的镜像源  
+Electron-builder 的镜像源配置如下
+```json
+"build": {
+    "electronDownload": {
+      "mirror": "https://npm.taobao.org/mirrors/electron/"
+    }
+}
+```
 文件将生成在`build`目录下

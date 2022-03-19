@@ -22,9 +22,6 @@
     "fs": "0.0.1-security"
   },
   "build": {
-    "electronDownload": {
-      "mirror": "https://npm.taobao.org/mirrors/electron/"
-    },
     "appId": "com.timfang4162.desktop-schedule",
     "productName": "Dektop Schedule",
     "directories": {
