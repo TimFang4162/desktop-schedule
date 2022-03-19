@@ -24,12 +24,16 @@
   "build": {
     "appId": "com.timfang4162.desktop-schedule",
     "productName": "Dektop Schedule",
+    "compression": "maximum",
+    "copyright": "Copyright © 2019-2022 TimFang4162.",
     "directories": {
-      "output": "build"
+      "output": "build",
+      "buildResources": "buildResources"
     },
     "win": {
       "target": [
-        "zip"
+        "zip",
+        "nsis"
       ]
     },
     "nsis": {
