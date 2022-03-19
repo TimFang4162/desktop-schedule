@@ -1,130 +1,164 @@
-var app = require('electron');
-const { ipcRenderer: ipc } = require('electron');
+var app = require("electron");
+const { ipcRenderer: ipc } = require("electron");
 var fs = require("fs");
 var path = require("path");
-var exec = require('child_process').exec;
-var os = require("os")
+var exec = require("child_process").exec;
+var os = require("os");
 
-fs.exists(path.join(os.homedir(), "./desktop-schedule-config.json"), (exists) => {
-
+fs.exists(
+  path.join(os.homedir(), "./desktop-schedule-config.json"),
+  (exists) => {
     if (exists) {
-
-        console.log("config file exists.");
-
+      console.log("config file exists.");
+    } else {
+      console.log("can't find config file!");
+      var data = fs.readFileSync(path.join(__dirname, "./data.json"), "utf8");
+      fs.writeFileSync(
+        path.join(os.homedir(), "./desktop-schedule-config.json"),
+        data.toString(),
+        "utf8"
+      );
+      alert("配置文件已生成。请重新加载程序");
+      window.close();
     }
-
-    else {
-
-        console.log("can't find config file!");
-        var data = fs.readFileSync(path.join(__dirname, "./data.json"), 'utf8');
-        fs.writeFileSync(path.join(os.homedir(), "./desktop-schedule-config.json"), data.toString(), "utf8")
-        alert("配置文件已生成。请重新加载程序")
-        window.close()
-
-    }
-
-});
+  }
+);
 
 function loadData() {
-    var data = fs.readFileSync(path.join(os.homedir(), "./desktop-schedule-config.json"), 'utf8');
-    return JSON.parse(data.toString());
+  var data = fs.readFileSync(
+    path.join(os.homedir(), "./desktop-schedule-config.json"),
+    "utf8"
+  );
+  return JSON.parse(data.toString());
 }
 
 function saveData(data) {
-    fs.writeFileSync(path.join(os.homedir(), "./desktop-schedule-config.json"), JSON.stringify(data), "utf8")
+  fs.writeFileSync(
+    path.join(os.homedir(), "./desktop-schedule-config.json"),
+    JSON.stringify(data),
+    "utf8"
+  );
 }
 
+var weeks = new Array("sun", "mon", "tue", "wed", "thu", "fri", "sat");
+var week=0
+
+var now = new Date();
 function getWeekDate() {
-    var now = new Date();
-    var day = now.getDay();
-    var weeks = new Array("sun", "mon", "tue", "wed", "thu", "fri", "sat");
-    var week = weeks[day];
-    return week;
+  var day = now.getDay();
+  week = weeks[day];
+  return week;
 }
 
 function reload_getWeek() {
-    data = loadData()
-    week = getWeekDate();
-    //week = "sun";
-    todayCourses = data.courses[week];
+  data = loadData();
+  week = getWeekDate();
+  //week = "sun";
+  todayCourses = data.courses[week];
 }
 reload_getWeek();
 
 function buttonGroup_edit(num) {
-    console.log("edit", num)
-    var e_week = week;
-    var editWin = window.open('./edit.html?data=' + encodeURIComponent(JSON.stringify(data)) + '&onEditNum=' + num + '&onEditWeek=' + e_week, 'test', 'width=330,height=280,top=100,left=200,frame=false,nodeIntegration=yes');
+  console.log("edit", num);
+  var e_week = week;
+  var editWin = window.open(
+    "./edit.html?data=" +
+      encodeURIComponent(JSON.stringify(data)) +
+      "&onEditNum=" +
+      num +
+      "&onEditWeek=" +
+      e_week,
+    "test",
+    "width=330,height=280,top=100,left=200,frame=false,nodeIntegration=yes"
+  );
 }
 function buttonGroup_up(num) {
-    console.log("up", num)
-    if (num != 0) {
-        var temp = data.courses[week][num];
-        data.courses[week][num] = data.courses[week][num - 1];
-        data.courses[week][num - 1] = temp;
-        saveData(data);
-        reloadAll();
-    } else {
-        alert("You can not do that!")
-    }
+  console.log("up", num);
+  if (num != 0) {
+    var temp = data.courses[week][num];
+    data.courses[week][num] = data.courses[week][num - 1];
+    data.courses[week][num - 1] = temp;
+    saveData(data);
+    reloadAll();
+  } else {
+    alert("You can not do that!");
+  }
 }
 
 function buttonGroup_down(num) {
-    console.log("down", num)
-    if (num != data.courses[week].length - 1) {
-        var temp = data.courses[week][num];
-        data.courses[week][num] = data.courses[week][num + 1];
-        data.courses[week][num + 1] = temp;
-        saveData(data);
-        reloadAll();
-    } else {
-        alert("You can not do that!")
-    }
+  console.log("down", num);
+  if (num != data.courses[week].length - 1) {
+    var temp = data.courses[week][num];
+    data.courses[week][num] = data.courses[week][num + 1];
+    data.courses[week][num + 1] = temp;
+    saveData(data);
+    reloadAll();
+  } else {
+    alert("You can not do that!");
+  }
 }
 
 function buttonGroup_del(num) {
-    console.log("del", num)
-    var r = confirm("Are you sure?");
-    if (r == true) {
-        data.courses[week].splice(num, 1);
-        saveData(data);
-        reloadAll();
-    }
+  console.log("del", num);
+  var r = confirm("Are you sure?");
+  if (r == true) {
+    data.courses[week].splice(num, 1);
+    saveData(data);
+    reloadAll();
+  }
 }
 
 function addCourse() {
-    data.courses[week].push({
-        "name": "名称",
-        "time_start": "00:00",
-        "time_end": "00:00"
-    });
-    saveData(data);
-    reloadAll();
+  data.courses[week].push({
+    name: "名称",
+    time_start: "00:00",
+    time_end: "00:00",
+  });
+  saveData(data);
+  reloadAll();
 }
 
 function openFolder(id) {
-    var name = todayCourses[id].name;
-    var fpath = path.join(data.config.folderPath, name);
-    console.log(fpath);
-    exec('explorer.exe "' + fpath + '"')
+  var name = todayCourses[id].name;
+  var fpath = path.join(data.config.folderPath, name);
+  console.log(fpath);
+  exec('explorer.exe "' + fpath + '"');
 }
 
 function openConfig() {
-    console.log("openConfig")
-    var configWin = window.open('./config.html?data=' + encodeURIComponent(JSON.stringify(data)), 'test', 'frame=true,nodeIntegration=yes');
+  console.log("openConfig");
+  var configWin = window.open(
+    "./config.html?data=" + encodeURIComponent(JSON.stringify(data)),
+    "test",
+    "frame=true,nodeIntegration=yes"
+  );
+  change_action();
 }
 
-
 function reload_renderHtml() {
-    var courseHtml = "";
-    for (each in todayCourses) {
-        courseHtml += `
-    <div class="courses">
-    <div id="course-id-`+ each + `" onclick=openFolder(` + each + `) class="course_click">
-      <h2>` + todayCourses[each].name + `</h2>
-      <p class="course_time">` + todayCourses[each].time_start + ` - ` + todayCourses[each].time_end + `</p>
+  var courseHtml = "";
+  for (each in todayCourses) {
+    courseHtml +=
+      `
+    <div class="courses mdui-ripple mdui-ripple-blue">
+    <div id="course-id-` +
+      each +
+      `" onclick=openFolder(` +
+      each +
+      `) class="course_click">
+      <h2>` +
+      todayCourses[each].name +
+      `</h2>
+      <p class="course_time">` +
+      todayCourses[each].time_start +
+      ` - ` +
+      todayCourses[each].time_end +
+      `</p>
     </div>
       <div class="course_buttons_group">
-    <button type="button" class="course_buttons" id="course_button_edit" onclick=buttonGroup_edit(` + each + `)>
+    <button type="button" class="course_buttons" id="course_button_edit" onclick=buttonGroup_edit(` +
+      each +
+      `)>
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pencil-square"
             viewBox="0 0 16 16">
             <path
@@ -137,7 +171,9 @@ function reload_renderHtml() {
         Edit
     </button>
 
-    <button type="button" class="course_buttons" id="course_button_up" onclick=buttonGroup_up(` + each + `)>
+    <button type="button" class="course_buttons" id="course_button_up" onclick=buttonGroup_up(` +
+      each +
+      `)>
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-arrow-up"
             viewBox="0 0 16 16">
             <path fill-rule="evenodd"
@@ -147,7 +183,9 @@ function reload_renderHtml() {
         Up
     </button>
 
-    <button type="button" class="course_buttons" id="course_button_down" onclick=buttonGroup_down(` + each + `)>
+    <button type="button" class="course_buttons" id="course_button_down" onclick=buttonGroup_down(` +
+      each +
+      `)>
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-arrow-down"
             viewBox="0 0 16 16">
             <path fill-rule="evenodd"
@@ -157,7 +195,9 @@ function reload_renderHtml() {
         Down
     </button>
 
-    <button type="button" class="course_buttons" id="course_button_del" onclick=buttonGroup_del(` + each + `)>
+    <button type="button" class="course_buttons" id="course_button_del" onclick=buttonGroup_del(` +
+      each +
+      `)>
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-trash"
             viewBox="0 0 16 16">
             <path
@@ -170,55 +210,81 @@ function reload_renderHtml() {
     </button>
 </div>
     </div>`;
-    }
-    if (todayCourses.length == 0) {
-        courseHtml += `<div class=course_nocourse><p>今日无课程</p></div>`;
-    }
-    courseHtml += `
-    <div onclick=addCourse() class="course_add">
+  }
+  if (todayCourses.length == 0) {
+    courseHtml += `<div class=course_nocourse><p>今日无课程</p></div>`;
+  }
+  courseHtml += `
+    <div onclick=addCourse() class="course_add  mdui-ripple mdui-ripple-blue">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
   <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
 </svg>
     </div>`;
-    $("#course_list")[0].innerHTML = courseHtml;
+  $("#course_list")[0].innerHTML = courseHtml;
+  $("#disp_week")[0].innerHTML = now.toLocaleDateString()+" "+week;
 }
 reload_renderHtml();
 
 function reloadAll() {
-    reload_getWeek();
-    reload_renderHtml();
+  reload_getWeek();
+  reload_renderHtml();
 }
 
-document.getElementById("close_button").addEventListener("click", () => {
+document.getElementById("close_button").addEventListener(
+  "click",
+  () => {
     console.log("cl");
-    ipc.send('close');
+    ipc.send("close");
     app.BrowserWindow.getFocusedWindow().close();
-}, false);
+  },
+  false
+);
 
 var actions_dropdown_status = false;
 
+function change_action() {
+  if (actions_dropdown_status == false) {
+    $("#dropdown_actions").css("display", "block");
+    actions_dropdown_status = true;
+  } else {
+    $("#dropdown_actions").css("display", "none");
+    actions_dropdown_status = false;
+  }
+}
 $("#actions_button").on("click", function () {
-    if (actions_dropdown_status == false) {
-        $("#dropdown_actions").css("display", "block");
-        actions_dropdown_status = true;
-    } else {
-        $("#dropdown_actions").css("display", "none");
-        actions_dropdown_status = false;
-    }
+  change_action();
 });
 
 window.addEventListener("message", (eventObj) => {
-    if (eventObj.data.action == "edit_saveforever") {
-        var week = eventObj.data.data.week;
-        var num = eventObj.data.data.num;
-        data.courses[week][num] = eventObj.data.data.data;
-        saveData(data);
-        reloadAll();
-    }
-    if (eventObj.data.action == "config_saveforever") {
-        data = eventObj.data.data.data;
-        saveData(data);
-        reloadAll();
-    }
-    console.log(eventObj.data)
-})
+  if (eventObj.data.action == "edit_saveforever") {
+    var week = eventObj.data.data.week;
+    var num = eventObj.data.data.num;
+    data.courses[week][num] = eventObj.data.data.data;
+    saveData(data);
+    reloadAll();
+  }
+  if (eventObj.data.action == "config_saveforever") {
+    data = eventObj.data.data.data;
+    saveData(data);
+    reloadAll();
+  }
+  console.log(eventObj.data);
+});
+
+function next_day() {
+  now.setDate(now.getDate() + 1);
+  var day = now.getDay();
+  week = weeks[day];
+  todayCourses = data.courses[week];
+  reload_renderHtml();
+  console.log(now, week);
+}
+
+function prev_day() {
+  now.setDate(now.getDate() - 1);
+  var day = now.getDay();
+  week = weeks[day];
+  todayCourses = data.courses[week];
+  reload_renderHtml();
+  console.log(now, week);
+}
