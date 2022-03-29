@@ -93,11 +93,14 @@
 	color: #fff;
 	backdrop-filter: blur(10px);
 ">
-		<button class="mdui-btn mdui-btn-icon mdui-btn-dense mdui-ripple" onclick="prev_day()">
+		<button class="mdui-btn mdui-btn-icon mdui-btn-dense mdui-ripple" onclick="prev_day()"
+			mdui-tooltip="{content: '前一天', position: 'top'}">
 			<i class="mdui-icon material-icons">chevron_left</i>
 		</button>
-		<button class="mdui-btn mdui-btn-dense mdui-ripple" onclick="location.reload()" id="disp_week"></button>
-		<button class="mdui-btn mdui-btn-icon mdui-btn-dense mdui-ripple" onclick="next_day()">
+		<button class="mdui-btn mdui-btn-dense mdui-ripple" onclick="location.reload()" id="disp_week"
+			mdui-tooltip="{content: '重置日期', position: 'top'}"></button>
+		<button class="mdui-btn mdui-btn-icon mdui-btn-dense mdui-ripple" onclick="next_day()"
+			mdui-tooltip="{content: '后一天', position: 'top'}">
 			<i class="mdui-icon material-icons">chevron_right</i>
 		</button>
 	</div>

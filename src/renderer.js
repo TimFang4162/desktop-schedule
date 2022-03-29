@@ -85,7 +85,7 @@ function buttonGroup_up(num) {
     saveData(data);
     reloadAll();
   } else {
-    alert("You can not do that!");
+    mdui.alert("You can not do that!");
   }
 }
 
@@ -98,24 +98,23 @@ function buttonGroup_down(num) {
     saveData(data);
     reloadAll();
   } else {
-    alert("You can not do that!");
+    mdui.alert("You can not do that!");
   }
 }
 
-function calcDate() {
+function calcDate(now) {
   var date = Date.parse("2022/06/15")
-  var now = new Date
+  //var now = new Date
   return ((date - now) / 1000 / 60 / 60 / 24)
 }
 
 function buttonGroup_del(num) {
   console.log("del", num);
-  var r = confirm("Are you sure?");
-  if (r == true) {
+  mdui.confirm('确认删除: ' + todayCourses[num].name, "", function () {
     data.courses[week].splice(num, 1);
     saveData(data);
     reloadAll();
-  }
+  });
 }
 
 function addCourse() {
@@ -132,6 +131,9 @@ function openFolder(id) {
   var name = todayCourses[id].name;
   var fpath = path.join(data.config.folderPath, name);
   console.log(fpath);
+  mdui.snackbar({
+    message: "打开文件夹: "+name
+  });
   exec('explorer.exe "' + fpath + '"');
 }
 
@@ -230,10 +232,12 @@ function reload_renderHtml() {
   <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
 </svg>
     </div>
-<div class="course_djs mdui-ripple mdui-ripple-blue">
+<div class="course_djs mdui-ripple mdui-ripple-blue" onclick="mdui.snackbar({
+  message: '没有彩蛋 :D'
+});">
     <div class="course_click">
       <p class="course_time">中考倒计时</p>
-      <h2>` + Math.ceil(calcDate()) + `天</h2>
+      <h2>` + Math.ceil(calcDate(now)) + `天</h2>
       <p class="course_time">2022/06/15</p>
     </div>
       <div class="course_buttons_group">
