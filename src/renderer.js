@@ -98,6 +98,12 @@ function buttonGroup_down(num) {
   }
 }
 
+function calcDate(){
+var date=Date.parse("2022/06/16")
+var now=new Date
+return((date-now)/1000/60/60/24)
+}
+
 function buttonGroup_del(num) {
   console.log("del", num);
   var r = confirm("Are you sure?");
@@ -219,6 +225,21 @@ function reload_renderHtml() {
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
   <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
 </svg>
+    </div>
+<div class="courses mdui-ripple mdui-ripple-blue">
+    <div class="course_click">
+<p class="course_time">中考倒计时</p>
+      <h2>` +Math.floor(calcDate())
+       +
+      `天</h2>
+
+    </div>
+      <div class="course_buttons_group">
+
+
+
+
+</div>
     </div>`;
   $("#course_list")[0].innerHTML = courseHtml;
   $("#disp_week")[0].innerHTML = now.toLocaleDateString()+" "+week;
