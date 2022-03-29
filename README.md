@@ -24,3 +24,9 @@ Electron-builder 的镜像源配置如下
 }
 ```
 文件将生成在`build`目录下
+
+> Tips:
+> ```bash
+> npm config set electron_mirror https://mirrors.huaweicloud.com/electron/
+> npm config set electron_builder_binaries_mirror https://repo.huaweicloud.com/electron-builder-binaries/
+> ```
