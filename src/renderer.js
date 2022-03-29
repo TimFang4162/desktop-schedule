@@ -1,5 +1,7 @@
 var app = require("electron");
-const { ipcRenderer: ipc } = require("electron");
+const {
+  ipcRenderer: ipc
+} = require("electron");
 var fs = require("fs");
 var path = require("path");
 var exec = require("child_process").exec;
@@ -41,9 +43,10 @@ function saveData(data) {
 }
 
 var weeks = new Array("sun", "mon", "tue", "wed", "thu", "fri", "sat");
-var week=0
+var week = 0
 
 var now = new Date();
+
 function getWeekDate() {
   var day = now.getDay();
   week = weeks[day];
@@ -63,15 +66,16 @@ function buttonGroup_edit(num) {
   var e_week = week;
   var editWin = window.open(
     "./edit.html?data=" +
-      encodeURIComponent(JSON.stringify(data)) +
-      "&onEditNum=" +
-      num +
-      "&onEditWeek=" +
-      e_week,
+    encodeURIComponent(JSON.stringify(data)) +
+    "&onEditNum=" +
+    num +
+    "&onEditWeek=" +
+    e_week,
     "test",
     "width=330,height=280,top=100,left=200,frame=false,nodeIntegration=yes"
   );
 }
+
 function buttonGroup_up(num) {
   console.log("up", num);
   if (num != 0) {
@@ -98,10 +102,10 @@ function buttonGroup_down(num) {
   }
 }
 
-function calcDate(){
-var date=Date.parse("2022/06/16")
-var now=new Date
-return((date-now)/1000/60/60/24)
+function calcDate() {
+  var date = Date.parse("2022/06/15")
+  var now = new Date
+  return ((date - now) / 1000 / 60 / 60 / 24)
 }
 
 function buttonGroup_del(num) {
@@ -226,13 +230,11 @@ function reload_renderHtml() {
   <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
 </svg>
     </div>
-<div class="courses mdui-ripple mdui-ripple-blue">
+<div class="course_djs mdui-ripple mdui-ripple-blue">
     <div class="course_click">
-<p class="course_time">中考倒计时</p>
-      <h2>` +Math.floor(calcDate())
-       +
-      `天</h2>
-
+      <p class="course_time">中考倒计时</p>
+      <h2>` + Math.ceil(calcDate()) + `天</h2>
+      <p class="course_time">2022/06/15</p>
     </div>
       <div class="course_buttons_group">
 
@@ -242,7 +244,7 @@ function reload_renderHtml() {
 </div>
     </div>`;
   $("#course_list")[0].innerHTML = courseHtml;
-  $("#disp_week")[0].innerHTML = now.toLocaleDateString()+" "+week;
+  $("#disp_week")[0].innerHTML = now.toLocaleDateString() + " " + week;
 }
 reload_renderHtml();
 

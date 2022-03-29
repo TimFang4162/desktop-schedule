@@ -70,6 +70,26 @@ audio {
     transition: all 0.3s ease;
 }
 
+.course_djs {
+    width: 100% !important;
+    background-color: #0000;
+    text-align: center;
+    height: 100px;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding-top: 13px;
+    transition: all 0.3s ease;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.course_djs:hover {
+    border: 2px solid #0D6EFDaa;
+    background-color: #0b367752;
+    transition: all 0.3s ease;
+}
+
 .dropdown_actions {
     background-color: #343a40aa;
 }
