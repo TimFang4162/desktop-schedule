@@ -1,56 +1,52 @@
 {
-  "name": "desktop-schedule-reborn",
-  "version": "0.1.0",
-  "private": true,
+  "name": "test1",
+  "version": "0.0.1",
+  "description": "An electron-nuxt project",
+  "main": "./dist/main/index.js",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "electron:build": "vue-cli-service electron:build",
-    "electron:serve": "vue-cli-service electron:serve",
-    "postinstall": "electron-builder install-app-deps",
-    "postuninstall": "electron-builder install-app-deps"
+    "dev": "node .electron-nuxt/dev.js",
+    "build": "node .electron-nuxt/build.js",
+    "lint": "node_modules/.bin/eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter ./src",
+    "lint:fix": "yarn lint --fix",
+    "preinstall": "node .electron-nuxt/check-engines.js",
+    "postinstall": "electron-builder install-app-deps & yarn lint:fix"
   },
-  "main": "background.js",
-  "dependencies": {
-    "core-js": "^3.8.3",
-    "vue": "^2.6.14",
-    "vuetify": "^2.6.0"
+  "keywords": [],
+  "author": "TimFang <mc13735292967@163.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/michalzaq12/electron-nuxt/blob/master/README.md",
+  "engines" : {
+    "node" : ">=14.14.9"
+  },
+  "resolutions": {
+    "@types/node": "14.14.9"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
-    "electron": "^13.0.0",
-    "electron-devtools-installer": "^3.1.0",
-    "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3",
-    "sass": "~1.32.0",
-    "sass-loader": "^10.0.0",
-    "vue-cli-plugin-electron-builder": "~2.1.1",
-    "vue-cli-plugin-vuetify": "~2.5.8",
-    "vue-template-compiler": "^2.6.14",
-    "vuetify-loader": "^1.7.0"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "@babel/eslint-parser"
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+    "@xpda-dev/core": "^0.1.6",
+    "@xpda-dev/electron-launcher": "^0.3.0",
+    "@xpda-dev/electron-builder": "^0.2.1",
+    "@xpda-dev/webpack-step": "^0.1.6",
+    "deepmerge": "^4.2.2",
+    "@mdi/font": "^6.4.95",
+    "cross-env": "^7.0.3",
+    "electron": "^16.0.5",
+    "electron-builder": "^22.14.5",
+    "eslint": "8.1.0",
+    "@babel/eslint-parser": "7.16.3",
+    "eslint-friendly-formatter": "4.0.1",
+    "eslint-loader": "4.0.2",
+    "@nuxtjs/eslint-config": "8.0.0",
+    "eslint-plugin-nuxt": "^3.1.0",
+    "eslint-plugin-vue": "^8.1.1",
+    
+    "nuxt": "^2.15.8",
+    "node-sass": "^6.0.1",
+    "sass-loader": "12.4.0",
+    "electron-devtools-installer": "^3.2.0",
+    "roboto-fontface": "^0.10.0",
+    "vuetify": "^2.5.10",
+    "@nuxtjs/vuetify": "^1.12.1",
+    "webpack": "^4.46.0",
+    "webpack-node-externals": "^3.0.0"
+  }
 }

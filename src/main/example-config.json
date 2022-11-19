@@ -1,0 +1,305 @@
+{
+    "courses": {
+        "语文": {
+            "name": "语文",
+            "$folder": "语文",
+            "$ftp_user": "ywtmy",
+            "$ftp_pwd": "ywtmy"
+        },
+        "数学": {
+            "name": "数学",
+            "$folder": "数学",
+            "$ftp_user": "sxjwx",
+            "$ftp_pwd": "sxjwx"
+        },
+        "英语": {
+            "name": "英语",
+            "$folder": "英语",
+            "$ftp_user": "yycyj",
+            "$ftp_pwd": "yycyj"
+        },
+        "物理": {
+            "name": "物理",
+            "$folder": "物理",
+            "$ftp_user": "wlcpz",
+            "$ftp_pwd": "wlcpz"
+        },
+        "化学": {
+            "name": "化学",
+            "$folder": "化学",
+            "$ftp_user": "hxlwt",
+            "$ftp_pwd": "hxlwt"
+        },
+        "生物": {
+            "name": "生物",
+            "$folder": "生物",
+            "$ftp_user": "swyj",
+            "$ftp_pwd": "swyj"
+        },
+        "政治": {
+            "name": "政治",
+            "$folder": "政治",
+            "$ftp_user": "zzwjy",
+            "$ftp_pwd": "zzwjy"
+        },
+        "历史": {
+            "name": "历史",
+            "$folder": "历史",
+            "$ftp_user": "lswsy",
+            "$ftp_pwd": "lswsy"
+        },
+        "地理": {
+            "name": "地理",
+            "$folder": "地理",
+            "$ftp_user": "dlzgq",
+            "$ftp_pwd": "dlzgq"
+        },
+        "心理": {
+            "name": "心理",
+            "$folder": "心理",
+            "$ftp_user": "",
+            "$ftp_pwd": ""
+        },
+        "体育": {
+            "name": "体育",
+            "$folder": "体育",
+            "$ftp_user": "",
+            "$ftp_pwd": ""
+        },
+        "音乐": {
+            "name": "音乐",
+            "$folder": "音乐",
+            "$ftp_user": "",
+            "$ftp_pwd": ""
+        }
+    },
+    "schedule": {
+        "mon": [
+            {
+                "ref": "语文",
+                "time_start": "7:50",
+                "time_end": "8:35"
+            },
+            {
+                "ref": "数学",
+                "time_start": "8:45",
+                "time_end": "9:30"
+            },
+            {
+                "ref": "生物",
+                "time_start": "9:50",
+                "time_end": "10:35"
+            },
+            {
+                "ref": "英语",
+                "time_start": "10:45",
+                "time_end": "11:30"
+            },
+            {
+                "ref": "政治",
+                "time_start": "13:15",
+                "time_end": "14:00"
+            },
+            {
+                "ref": "历史",
+                "time_start": "14:10",
+                "time_end": "14:55"
+            },
+            {
+                "ref": "地理",
+                "time_start": "15:10",
+                "time_end": "15:55"
+            }
+        ],
+        "tue": [
+            {
+                "ref": "语文",
+                "time_start": "7:50",
+                "time_end": "8:35"
+            },
+            {
+                "ref": "数学",
+                "time_start": "8:45",
+                "time_end": "9:30"
+            },
+            {
+                "ref": "生物",
+                "time_start": "9:50",
+                "time_end": "10:35"
+            },
+            {
+                "ref": "英语",
+                "time_start": "10:45",
+                "time_end": "11:30"
+            },
+            {
+                "ref": "政治",
+                "time_start": "13:15",
+                "time_end": "14:00"
+            },
+            {
+                "ref": "历史",
+                "time_start": "14:10",
+                "time_end": "14:55"
+            },
+            {
+                "ref": "地理",
+                "time_start": "15:10",
+                "time_end": "15:55"
+            }
+        ],
+        "wed": [
+            {
+                "ref": "语文",
+                "time_start": "7:50",
+                "time_end": "8:35"
+            },
+            {
+                "ref": "数学",
+                "time_start": "8:45",
+                "time_end": "9:30"
+            },
+            {
+                "ref": "生物",
+                "time_start": "9:50",
+                "time_end": "10:35"
+            },
+            {
+                "ref": "英语",
+                "time_start": "10:45",
+                "time_end": "11:30"
+            },
+            {
+                "ref": "政治",
+                "time_start": "13:15",
+                "time_end": "14:00"
+            },
+            {
+                "ref": "历史",
+                "time_start": "14:10",
+                "time_end": "14:55"
+            },
+            {
+                "ref": "地理",
+                "time_start": "15:10",
+                "time_end": "15:55"
+            }
+        ],
+        "thu": [
+            {
+                "ref": "语文",
+                "time_start": "7:50",
+                "time_end": "8:35"
+            },
+            {
+                "ref": "数学",
+                "time_start": "8:45",
+                "time_end": "9:30"
+            },
+            {
+                "ref": "生物",
+                "time_start": "9:50",
+                "time_end": "10:35"
+            },
+            {
+                "ref": "英语",
+                "time_start": "10:45",
+                "time_end": "11:30"
+            },
+            {
+                "ref": "政治",
+                "time_start": "13:15",
+                "time_end": "14:00"
+            },
+            {
+                "ref": "历史",
+                "time_start": "14:10",
+                "time_end": "14:55"
+            },
+            {
+                "ref": "地理",
+                "time_start": "15:10",
+                "time_end": "15:55"
+            }
+        ],
+        "fri": [
+            {
+                "ref": "语文",
+                "time_start": "7:50",
+                "time_end": "8:35"
+            },
+            {
+                "ref": "数学",
+                "time_start": "8:45",
+                "time_end": "9:30"
+            },
+            {
+                "ref": "生物",
+                "time_start": "9:50",
+                "time_end": "10:35"
+            },
+            {
+                "ref": "英语",
+                "time_start": "10:45",
+                "time_end": "11:30"
+            },
+            {
+                "ref": "政治",
+                "time_start": "13:15",
+                "time_end": "14:00"
+            },
+            {
+                "ref": "历史",
+                "time_start": "14:10",
+                "time_end": "14:55"
+            },
+            {
+                "ref": "地理",
+                "time_start": "15:10",
+                "time_end": "15:55"
+            }
+        ],
+        "sat": [
+            {
+                "ref": "语文",
+                "time_start": "7:50",
+                "time_end": "8:35"
+            },
+            {
+                "ref": "数学",
+                "time_start": "8:45",
+                "time_end": "9:30"
+            },
+            {
+                "ref": "生物",
+                "time_start": "9:50",
+                "time_end": "10:35"
+            },
+            {
+                "ref": "英语",
+                "time_start": "10:45",
+                "time_end": "11:30"
+            },
+            {
+                "ref": "政治",
+                "time_start": "13:15",
+                "time_end": "14:00"
+            },
+            {
+                "ref": "历史",
+                "time_start": "14:10",
+                "time_end": "14:55"
+            },
+            {
+                "ref": "地理",
+                "time_start": "15:10",
+                "time_end": "15:55"
+            }
+        ],
+        "sun": []
+    },
+    "config": {
+        "theme": "dark",
+        "folderPath": "C:\\Users\\Administrator"
+    }
+}

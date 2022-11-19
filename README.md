@@ -1,24 +1,24 @@
-# desktop-schedule-reborn
+# test1
 
-## Project setup
-```
+> An electron-nuxt project
+
+#### Build Setup
+
+``` bash
+# install dependencies
 yarn install
-```
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+# serve app with hot reload
+yarn dev
 
-### Compiles and minifies for production
-```
+# build electron application for production
 yarn build
-```
 
-### Lints and fixes files
-```
+# lint all JS/Vue component files in `src/`
 yarn lint
+
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+---
+
+This project was generated with [electron-nuxt](https://github.com/michalzaq12/electron-nuxt) v1.8.1 using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://github.com/michalzaq12/electron-nuxt/blob/master/README.md).

@@ -1,0 +1,78 @@
+Arguments: 
+  E:\node-v16.15.1-win-x64\node.exe C:\Users\30732\.yarn\bin\yarn.js
+
+PATH: 
+  C:\Users\30732\.yarn\bin;C:\Users\30732\.config\yarn\global\node_modules\.bin;E:\Git\mingw64\bin;E:\Git\usr\bin;C:\Users\30732\bin;E:\Python39\Scripts;E:\Python39;E:\VMware Workstation\bin;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64_win\compiler;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;E:\Microsoft VS Code\bin;C:\Users\30732\AppData\Roaming\Python\Python38\Scripts;C:\Program Files\python;C:\Program Files\python\Scripts;C:\Program Files\python;C:\Program Files\python\Scripts;C:\Program Files\dotnet;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Users\30732\AppData\Local\Microsoft\WindowsApps;D:\Code;E:\Git\usr\bin;E:\Git\;C:\Users\30732\AppData\Local\Microsoft\WindowsApps;E:\Bandizip;C:\Users\30732\AppData\Local\Yarn\Data\global\node_modules\.bin;E:\Alibaba_Dragonwell\gradle-7.3.3\bin;E:\node-v16.15.1-win-x64;D:\Code\PCL\.minecraft\ffmpeg\bin;E:\Alibaba_Dragonwell\jdk-17.0.1.0.1+12\bin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  16.15.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: read ECONNRESET
+      at TLSWrap.onStreamRead (node:internal/stream_base_commons:217:20)
+
+npm manifest: 
+  {
+    "name": "test1",
+    "version": "0.0.1",
+    "description": "An electron-nuxt project",
+    "main": "./dist/main/index.js",
+    "scripts": {
+      "dev": "node .electron-nuxt/dev.js",
+      "build": "node .electron-nuxt/build.js",
+      "lint": "node_modules/.bin/eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter ./src",
+      "lint:fix": "yarn lint --fix",
+      "preinstall": "node .electron-nuxt/check-engines.js",
+      "postinstall": "electron-builder install-app-deps & yarn lint:fix"
+    },
+    "keywords": [],
+    "author": "TimFang <mc13735292967@163.com>",
+    "license": "MIT",
+    "homepage": "https://github.com/michalzaq12/electron-nuxt/blob/master/README.md",
+    "engines" : {
+      "node" : ">=14.14.9"
+    },
+    "resolutions": {
+      "@types/node": "14.14.9"
+    },
+    "devDependencies": {
+      "@xpda-dev/core": "^0.1.6",
+      "@xpda-dev/electron-launcher": "^0.3.0",
+      "@xpda-dev/electron-builder": "^0.2.1",
+      "@xpda-dev/webpack-step": "^0.1.6",
+      "deepmerge": "^4.2.2",
+      "@mdi/font": "^6.4.95",
+      "cross-env": "^7.0.3",
+      "electron": "^16.0.5",
+      "electron-builder": "^22.14.5",
+      "eslint": "8.1.0",
+      "@babel/eslint-parser": "7.16.3",
+      "eslint-friendly-formatter": "4.0.1",
+      "eslint-loader": "4.0.2",
+      "@nuxtjs/eslint-config": "8.0.0",
+      "eslint-plugin-nuxt": "^3.1.0",
+      "eslint-plugin-vue": "^8.1.1",
+      
+      "nuxt": "^2.15.8",
+      "node-sass": "^6.0.1",
+      "sass-loader": "12.4.0",
+      "electron-devtools-installer": "^3.2.0",
+      "roboto-fontface": "^0.10.0",
+      "vuetify": "^2.5.10",
+      "@nuxtjs/vuetify": "^1.12.1",
+      "webpack": "^4.46.0",
+      "webpack-node-externals": "^3.0.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
