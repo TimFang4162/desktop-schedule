@@ -2,9 +2,17 @@ import path from 'path'
 import BrowserWinHandler from './BrowserWinHandler'
 // const path = require('path')
 const fs = require('fs')
+const shell = require('shelljs')
 const { app, ipcMain } = require('electron')
 
 const configPath = path.join(app.getPath('userData'), 'schedule-config.json')
+const exampleConfigPath = app.isPackaged
+  ? path.join(__dirname, '../../../example-config.json')
+  : path.join(__dirname, '../extraResources/example-config.json')
+  
+console.log('Dirname', __dirname)
+console.log('ExampleConfig', exampleConfigPath)
+console.log('Config', configPath)
 fs.stat(
   configPath,
   function (err, stats) {
@@ -12,7 +20,8 @@ fs.stat(
       console.log('Config file exists.')
     } else {
       console.warn("Can't find config file!")
-      const example = fs.readFileSync(path.join(__dirname, './example-config.json'), 'utf8')
+      const example = fs.readFileSync(exampleConfigPath, 'utf8')
+      console.log(example)
       fs.writeFileSync(
         configPath,
         example.toString(),
@@ -38,6 +47,13 @@ function saveConfig (data) {
   )
 }
 
+function courseClick (course) {
+  shell.config.execPath = shell.which('node').toString()
+  shell.config.silent = true
+  shell.exec('explorer')
+  console.log(course)
+}
+
 const winHandler = new BrowserWinHandler({
   height: 600,
   width: 1000,
@@ -51,6 +67,9 @@ winHandler.onCreated(_browserWindow => {
   ipcMain.handle('readConfig', readConfig)
   ipcMain.on('saveConfig', (event, data) => {
     saveConfig(data)
+  })
+  ipcMain.on('courseClick', (event, data) => {
+    courseClick(data)
   })
   // Or load custom url
   // _browserWindow.loadURL('https://google.com')

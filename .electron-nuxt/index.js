@@ -22,7 +22,7 @@ const launcher = new ElectronLauncher({
   entryFile: path.join(DIST_DIR, 'main/index.js')
 })
 
-function hasConfigArgument (array) {
+function hasConfigArgument(array) {
   for (const el of array) if (el === '--config' || el === '-c') return true
   return false
 }
