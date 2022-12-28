@@ -21,7 +21,8 @@ module.exports = {
 
   ],
   modules: [
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    'vuetify-dialog/nuxt'
   ],
   vuetify: {
     theme: {
@@ -34,5 +35,20 @@ module.exports = {
         }
       }
     }
-  }
+  },
+  vuetifyDialog: {
+    property: '$dialog',
+    confirm: {
+      icon: false
+    },
+    warning: {
+      icon: false
+    },
+    error: {
+      icon: false
+    },
+    prompt: {
+      icon: false
+    }
+  },
 }

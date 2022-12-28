@@ -31,4 +31,7 @@ export default {
 html {
   background: transparent;
 }
+.theme--dark.v-toolbar.v-sheet {
+  background: transparent;
+}
 </style>

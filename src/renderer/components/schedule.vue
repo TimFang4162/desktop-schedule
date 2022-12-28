@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <v-navigation-drawer permanent app width="220">
     <v-list-item>
@@ -7,7 +8,12 @@
           <v-spacer />
           <v-tooltip bottom>
             <template #activator="{ on, attrs }">
-              <v-btn icon v-bind="attrs" v-on="on" @click="onEdit = !onEdit">
+              <v-btn
+                icon
+                v-bind="attrs"
+                v-on="on"
+                @click="onEdit = !onEdit"
+              >
                 <v-icon>mdi-pencil-outline</v-icon>
               </v-btn>
             </template>
@@ -18,8 +24,12 @@
           <v-tooltip bottom>
             <template #activator="{ on, attrs }">
               <v-btn
-                small class="pl-1 pr-1" v-bind="attrs"
-                text v-on="on" @click="nowDate = new Date()"
+                small
+                class="pl-1 pr-1"
+                v-bind="attrs"
+                text
+                v-on="on"
+                @click="nowDate = new Date()"
               >
                 {{ nowDate.toLocaleDateString() }} {{ scheduleOfTheDay }}
               </v-btn>
@@ -30,8 +40,11 @@
           <v-tooltip bottom>
             <template #activator="{ on, attrs }">
               <v-btn
-                icon small v-bind="attrs"
-                v-on="on" @click="nowDate.setDate(nowDate.getDate() - 1); nowDate = new Date(nowDate)"
+                icon
+                small
+                v-bind="attrs"
+                v-on="on"
+                @click="nowDate.setDate(nowDate.getDate() - 1); nowDate = new Date(nowDate)"
               >
                 <v-icon>mdi-chevron-left</v-icon>
               </v-btn>
@@ -41,8 +54,11 @@
           <v-tooltip bottom>
             <template #activator="{ on, attrs }">
               <v-btn
-                icon small v-bind="attrs"
-                v-on="on" @click="nowDate.setDate(nowDate.getDate() + 1); nowDate = new Date(nowDate)"
+                icon
+                small
+                v-bind="attrs"
+                v-on="on"
+                @click="nowDate.setDate(nowDate.getDate() + 1); nowDate = new Date(nowDate)"
               >
                 <v-icon>mdi-chevron-right</v-icon>
               </v-btn>
@@ -151,31 +167,39 @@
           <v-card-actions>
             <v-spacer />
             <v-btn
-              color="blue darken-1"
+              color="darken-1"
               text
               @click="editDialog = false"
             >
               Cancel
             </v-btn>
             <v-btn
-              color="blue darken-1"
+              color="darken-1"
               text
-              @click="saveEdit()"
+              @click="courseSaveEdit()"
             >
               Save
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <template v-for="(each, index) in config.schedule[scheduleOfTheDay]">
-        <v-card :key="index" class="bg-t mb-2" elevation="0" ripple @click="courseOnClick(config.courses[each.ref])">
+      <template
+        v-for="(each, index) in config.schedule[scheduleOfTheDay]"
+      >
+        <v-card
+          :key="index"
+          class="bg-t mb-2"
+          elevation="0"
+          ripple
+          @click="courseOnClick(config.courses[each.ref])"
+        >
           <v-card-title class="text-h5 pb-2">
             {{ config.courses[each.ref].name }}
             <v-spacer />
-            <v-btn v-if="onEdit" icon small>
+            <v-btn v-if="onEdit" icon small @click.stop="courseOnMoveUp(index)">
               <v-icon>mdi-arrow-up</v-icon>
             </v-btn>
-            <v-btn v-if="onEdit" icon small>
+            <v-btn v-if="onEdit" icon small @click.stop="courseOnMoveDown(index)">
               <v-icon>mdi-arrow-down</v-icon>
             </v-btn>
             <v-btn v-if="onEdit" icon small @click.stop="courseOnDelete(index)">
@@ -191,32 +215,26 @@
           </v-card-text>
         </v-card>
       </template>
-      <!-- <v-list-item
-          v-for="item in items"
-          :key="item.title"
-          link
-        >
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item> -->
+      <template v-if="config.schedule[scheduleOfTheDay].length === 0">
+        <p class="text-center pt-12">
+          No courses today :D
+          <br>Hoorayyy !
+        </p>
+      </template>
     </v-list>
   </v-navigation-drawer>
 </template>
 <script>
 const { ipcRenderer } = require('electron')
 export default {
+  // eslint-disable-next-line vue/require-prop-types
   props: ['config'],
   data: () => ({
     nowDate: new Date(),
-    onEdit: false,
     tempConfig: {},
-    editDialog: false,
+    onEdit: false,
     onEditId: 0,
+    editDialog: false,
     editStartTimeMenu: false,
     editEndTimeMenu: false
   }),
@@ -231,26 +249,74 @@ export default {
     // console.log(this.nowDate)
   },
   methods: {
+    _deepcopy (object) {
+      return JSON.parse(JSON.stringify(object))
+    },
     courseOnClick (courseId) {
       ipcRenderer.send('courseClick', courseId)
       console.log(courseId)
     },
     _generateTempConfig () {
-      this.tempConfig = JSON.parse(JSON.stringify(this.config)) // deep copy
+      this.tempConfig = this._deepcopy(this.config)
     },
     _saveTempConfig () {
       ipcRenderer.send('saveConfig', this.tempConfig)
       this.$nuxt.refresh()
+    },
+    async courseOnMoveUp (courseId) {
+      // console.log(courseId)
+      if (courseId === 0) {
+        this.$dialog.error({
+          text: 'You can\'t move this course up',
+          title: 'Error'
+        })
+      } else {
+        this._generateTempConfig()
+        const temp = this._deepcopy(this.tempConfig.schedule[this.scheduleOfTheDay][courseId - 1])
+        this.tempConfig.schedule[this.scheduleOfTheDay][courseId - 1] =
+          this._deepcopy(this.tempConfig.schedule[this.scheduleOfTheDay][courseId])
+        this.tempConfig.schedule[this.scheduleOfTheDay][courseId] = temp
+        this._saveTempConfig()
+      }
+    },
+    async courseOnMoveDown (courseId) {
+      if (courseId === this.config.schedule[this.scheduleOfTheDay].length - 1) {
+        this.$dialog.error({
+          text: 'You can\'t move this course down',
+          title: 'Error'
+        })
+      } else {
+        this._generateTempConfig()
+        const temp = this._deepcopy(this.tempConfig.schedule[this.scheduleOfTheDay][courseId + 1])
+        this.tempConfig.schedule[this.scheduleOfTheDay][courseId + 1] =
+          this._deepcopy(this.tempConfig.schedule[this.scheduleOfTheDay][courseId])
+        this.tempConfig.schedule[this.scheduleOfTheDay][courseId] = temp
+        this._saveTempConfig()
+      }
+    },
+    async courseOnDelete (courseId) {
+      const confirm = await this.$dialog.confirm({
+        text: 'Are you sure to delete course ' +
+        this.config.courses[this.config.schedule[this.scheduleOfTheDay][courseId].ref].name + ' ?',
+        title: 'Confirm',
+        actions: [{
+          text: 'Cancel', key: false
+        }, {
+          text: 'Delete', key: true
+        }]
+      })
+      if (confirm === true) {
+        this._generateTempConfig()
+        this.tempConfig.schedule[this.scheduleOfTheDay].splice(courseId, 1)
+        this._saveTempConfig()
+      }
     },
     courseOnEdit (courseId) {
       this.onEditId = courseId
       this._generateTempConfig()
       this.editDialog = true
     },
-    courseOnDelete (courseId) {
-      this._generateTempConfig()
-    },
-    saveEdit () {
+    courseSaveEdit () {
       this._saveTempConfig()
       this.editDialog = false
     }

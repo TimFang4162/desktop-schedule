@@ -46,7 +46,9 @@
     "roboto-fontface": "^0.10.0",
     "shelljs": "^0.8.5",
     "vuetify": "^2.5.10",
+    "vuetify-dialog": "github:UniScratch/vuetify-dialog",
     "webpack": "^4.46.0",
     "webpack-node-externals": "^3.0.0"
-  }
+  },
+  "dependencies": {}
 }

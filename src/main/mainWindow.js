@@ -9,7 +9,7 @@ const configPath = path.join(app.getPath('userData'), 'schedule-config.json')
 const exampleConfigPath = app.isPackaged
   ? path.join(__dirname, '../../../example-config.json')
   : path.join(__dirname, '../extraResources/example-config.json')
-  
+
 console.log('Dirname', __dirname)
 console.log('ExampleConfig', exampleConfigPath)
 console.log('Config', configPath)

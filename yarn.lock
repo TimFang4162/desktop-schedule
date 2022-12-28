@@ -10582,6 +10582,10 @@ vue@^2.6.12:
     "@vue/compiler-sfc" "2.7.14"
     csstype "^3.1.0"
 
+"vuetify-dialog@github:UniScratch/vuetify-dialog":
+  version "2.0.20"
+  resolved "https://codeload.github.com/UniScratch/vuetify-dialog/tar.gz/14a0fc2b506bda5451b0400c96b824ab8f7a495a"
+
 vuetify-loader@^1.7.3:
   version "1.9.2"
   resolved "https://registry.npmjs.org/vuetify-loader/-/vuetify-loader-1.9.2.tgz#adcadac71c6d9b24bde42a5b81dfda1871f73f81"
