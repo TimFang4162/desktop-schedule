@@ -246,7 +246,6 @@ export default {
     }
   },
   mounted () {
-    // console.log(this.nowDate)
   },
   methods: {
     _deepcopy (object) {
@@ -296,8 +295,7 @@ export default {
     },
     async courseOnDelete (courseId) {
       const confirm = await this.$dialog.confirm({
-        text: 'Are you sure to delete course ' +
-        this.config.courses[this.config.schedule[this.scheduleOfTheDay][courseId].ref].name + ' ?',
+        text: `Are you sure to delete course ${this.config.courses[this.config.schedule[this.scheduleOfTheDay][courseId].ref].name} ?`,
         title: 'Confirm',
         actions: [{
           text: 'Cancel', key: false

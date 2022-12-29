@@ -50,5 +50,5 @@ module.exports = {
     prompt: {
       icon: false
     }
-  },
+  }
 }
