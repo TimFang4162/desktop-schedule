@@ -6,7 +6,63 @@
         <v-card-title class="text-h6 pa-0">
           Schedule
           <v-spacer />
-          <v-tooltip bottom>
+
+          <v-menu
+            v-if="!onEdit"
+            transition="slide-y-transition"
+            bottom
+          >
+            <template #activator="{ on, attrs }">
+              <v-btn
+                icon
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon>mdi-dots-horizontal</v-icon>
+              </v-btn>
+            </template>
+            <v-card>
+              <v-list-item-group>
+                <v-list-item @click="onEdit = true">
+                  <v-list-item-icon>
+                    <v-icon>mdi-pencil-outline</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>Edit schedule</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item @click.stop="settingsDialog = true">
+                  <v-list-item-icon>
+                    <v-icon>mdi-cog-outline</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>Settings</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item @click.stop="settingsDialog = true">
+                  <v-list-item-icon>
+                    <v-icon>mdi-information-outline</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>About</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item @click.stop="settingsDialog = true">
+                  <v-list-item-icon>
+                    <v-icon>mdi-window-close</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>Exit</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+              <settings
+                :settings-dialog="settingsDialog"
+                :config="config" @close="closeSettings()"
+              />
+            </v-card>
+          </v-menu>
+          <v-tooltip v-if="onEdit" bottom>
             <template #activator="{ on, attrs }">
               <v-btn
                 icon
@@ -17,7 +73,7 @@
                 <v-icon>mdi-pencil-outline</v-icon>
               </v-btn>
             </template>
-            <span>Edit schedule</span>
+            <span>Quit editing</span>
           </v-tooltip>
         </v-card-title>
         <v-card-title class="pa-0">
@@ -76,7 +132,7 @@
         v-if="editDialog"
         v-model="editDialog"
         persistent
-        max-width="600px"
+        max-width="35%"
       >
         <v-card>
           <v-card-title>
@@ -194,7 +250,7 @@
           @click="courseOnClick(config.courses[each.ref])"
         >
           <v-card-title class="text-h5 pb-2">
-            {{ config.courses[each.ref].name }}
+            {{ config.courses[each.ref]?.name }}
             <v-spacer />
             <v-btn v-if="onEdit" icon small @click.stop="courseOnMoveUp(index)">
               <v-icon>mdi-arrow-up</v-icon>
@@ -215,6 +271,21 @@
           </v-card-text>
         </v-card>
       </template>
+      <v-card
+        v-if="onEdit"
+        class="bg-t mb-2"
+        elevation="0"
+        ripple
+        @click="addCourse()"
+      >
+        <v-card-title class="text-h5 pb-2">
+          <v-icon>mdi-plus</v-icon>
+        </v-card-title>
+
+        <v-card-text>
+          Add new course
+        </v-card-text>
+      </v-card>
       <template v-if="config.schedule[scheduleOfTheDay].length === 0">
         <p class="text-center pt-12">
           No courses today :D
@@ -236,7 +307,8 @@ export default {
     onEditId: 0,
     editDialog: false,
     editStartTimeMenu: false,
-    editEndTimeMenu: false
+    editEndTimeMenu: false,
+    settingsDialog: false
   }),
   computed: {
     scheduleOfTheDay () {
@@ -251,16 +323,16 @@ export default {
     _deepcopy (object) {
       return JSON.parse(JSON.stringify(object))
     },
-    courseOnClick (courseId) {
-      ipcRenderer.send('courseClick', courseId)
+    async courseOnClick (courseId) {
+      await ipcRenderer.send('courseClick', courseId)
       console.log(courseId)
     },
     _generateTempConfig () {
       this.tempConfig = this._deepcopy(this.config)
     },
-    _saveTempConfig () {
-      ipcRenderer.send('saveConfig', this.tempConfig)
-      this.$nuxt.refresh()
+    async _saveTempConfig () {
+      await ipcRenderer.send('saveConfig', this.tempConfig)
+      await this.$nuxt.refresh()
     },
     async courseOnMoveUp (courseId) {
       // console.log(courseId)
@@ -275,7 +347,7 @@ export default {
         this.tempConfig.schedule[this.scheduleOfTheDay][courseId - 1] =
           this._deepcopy(this.tempConfig.schedule[this.scheduleOfTheDay][courseId])
         this.tempConfig.schedule[this.scheduleOfTheDay][courseId] = temp
-        this._saveTempConfig()
+        await this._saveTempConfig()
       }
     },
     async courseOnMoveDown (courseId) {
@@ -290,12 +362,12 @@ export default {
         this.tempConfig.schedule[this.scheduleOfTheDay][courseId + 1] =
           this._deepcopy(this.tempConfig.schedule[this.scheduleOfTheDay][courseId])
         this.tempConfig.schedule[this.scheduleOfTheDay][courseId] = temp
-        this._saveTempConfig()
+        await this._saveTempConfig()
       }
     },
     async courseOnDelete (courseId) {
       const confirm = await this.$dialog.confirm({
-        text: `Are you sure to delete course ${this.config.courses[this.config.schedule[this.scheduleOfTheDay][courseId].ref].name} ?`,
+        text: `Are you sure to delete course ${this.config.courses[this.config.schedule[this.scheduleOfTheDay][courseId].ref]?.name} ?`,
         title: 'Confirm',
         actions: [{
           text: 'Cancel', key: false
@@ -306,7 +378,7 @@ export default {
       if (confirm === true) {
         this._generateTempConfig()
         this.tempConfig.schedule[this.scheduleOfTheDay].splice(courseId, 1)
-        this._saveTempConfig()
+        await this._saveTempConfig()
       }
     },
     courseOnEdit (courseId) {
@@ -314,9 +386,23 @@ export default {
       this._generateTempConfig()
       this.editDialog = true
     },
-    courseSaveEdit () {
-      this._saveTempConfig()
+    async courseSaveEdit () {
+      await this._saveTempConfig()
       this.editDialog = false
+    },
+    async addCourse () {
+      this._generateTempConfig()
+      const length = this.tempConfig.schedule[this.scheduleOfTheDay].length
+      this.tempConfig.schedule[this.scheduleOfTheDay][length] = {
+        ref: this._deepcopy(Object.entries(this.config.courses)[0][0]),
+        time_start: '00:00',
+        time_end: '00:00'
+      }
+      await this._saveTempConfig()
+      this.courseOnEdit(length)
+    },
+    closeSettings () {
+      this.settingsDialog = false
     }
   }
 }

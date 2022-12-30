@@ -34,4 +34,5 @@ html {
 .theme--dark.v-toolbar.v-sheet {
   background: transparent;
 }
+::-webkit-scrollbar { width: 0 !important }
 </style>
