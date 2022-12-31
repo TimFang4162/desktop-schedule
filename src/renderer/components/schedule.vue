@@ -39,7 +39,7 @@
                     <v-list-item-title>Settings</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                <v-list-item @click.stop="settingsDialog = true">
+                <v-list-item @click.stop="aboutDialog = true">
                   <v-list-item-icon>
                     <v-icon>mdi-information-outline</v-icon>
                   </v-list-item-icon>
@@ -47,7 +47,7 @@
                     <v-list-item-title>About</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
-                <v-list-item @click.stop="settingsDialog = true">
+                <v-list-item @click.stop="closeApp()">
                   <v-list-item-icon>
                     <v-icon>mdi-window-close</v-icon>
                   </v-list-item-icon>
@@ -60,6 +60,11 @@
                 v-if="settingsDialog"
                 :settings-dialog="settingsDialog"
                 :config="config" @close="closeSettings()"
+              />
+              <about
+                v-if="aboutDialog"
+                :about-dialog="aboutDialog"
+                @close="closeAbout()"
               />
             </v-card>
           </v-menu>
@@ -309,7 +314,8 @@ export default {
     editDialog: false,
     editStartTimeMenu: false,
     editEndTimeMenu: false,
-    settingsDialog: false
+    settingsDialog: false,
+    aboutDialog: false
   }),
   computed: {
     scheduleOfTheDay () {
@@ -404,6 +410,12 @@ export default {
     },
     closeSettings () {
       this.settingsDialog = false
+    },
+    closeAbout () {
+      this.aboutDialog = false
+    },
+    closeApp () {
+      window.close()
     }
   }
 }

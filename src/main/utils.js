@@ -35,6 +35,10 @@ const metadataPath = getResPath('meta.json')
 const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf8'))
 const appVersion = metadata.appVersion
 
+export const getMetadata = () => {
+  return metadata
+}
+
 export const readConfig = () => {
   const data = fs.readFileSync(
     configPath,

@@ -2,9 +2,8 @@
   <v-app style="background: transparent;">
     <schedule class="bg-t" :config="config" />
     <v-main id="click-through">
-      <v-container>
-        1234
-      </v-container>
+      <!-- <v-container>
+      </v-container> -->
     </v-main>
   </v-app>
 </template>

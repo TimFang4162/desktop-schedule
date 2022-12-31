@@ -25,6 +25,7 @@ const winHandler = new BrowserWinHandler({
 winHandler.onCreated(_browserWindow => {
   winHandler.loadPage('/')
   _browserWindow.maximize()
+  ipcMain.handle('getMetadata', utils.getMetadata)
   ipcMain.handle('readConfig', utils.readConfig)
   ipcMain.on('saveConfig', (event, data) => {
     utils.saveConfig(data)
