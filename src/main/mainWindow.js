@@ -1,32 +1,16 @@
-// import path from 'path'
 import BrowserWinHandler from './BrowserWinHandler'
 import * as utils from './utils'
-// const fs = require('fs')
-const shell = require('shelljs')
-const { ipcMain } = require('electron')
-// const configPath = path.join(app.getPath('userData'), 'schedule-config.json')
-// const exampleConfigPath = utils.getResPath('example-config.json')
-// const metadataPath = utils.getResPath('meta.json')
-// const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf8'))
-
-// console.log('Dirname', __dirname)
-// console.log('ExampleConfig', exampleConfigPath)
-// console.log('Config', configPath)
-// console.log('Metadata', metadataPath)
-// const appVersion = metadata.appVersion
+const exec = require('child_process').exec
+const { ipcMain, BrowserWindow } = require('electron')
 
 utils.migrateConfig()
 
 function courseClick (course) {
   if (course.action === 'openFtp') {
-    shell.config.execPath = shell.which('node').toString()
-    shell.config.silent = true
-    shell.exec(`explorer.exe ftp://${course.config.$ftp_user}:${course.config.$ftp_pwd}@${course.config.$ftp_ip}/${course.config.$ftp_folder}`)
+    exec(`explorer.exe ftp://${course.config.$ftp_user}:${course.config.$ftp_pwd}@${course.config.$ftp_ip}/${course.config.$ftp_folder}`)
   }
   if (course.action === 'runCommand') {
-    shell.config.execPath = shell.which('node').toString()
-    shell.config.silent = true
-    shell.exec(course.config.$command)
+    exec(course.config.$command)
   }
   console.log(course)
 }
@@ -51,8 +35,10 @@ winHandler.onCreated(_browserWindow => {
   ipcMain.on('setStartWithSystem', (event, data) => {
     utils.setStartWithSystem(data)
   })
-  // Or load custom url
-  // _browserWindow.loadURL('https://google.com')
+  ipcMain.on('set-ignore-mouse-events', (event, ...args) => {
+    const win = BrowserWindow.fromWebContents(event.sender)
+    win.setIgnoreMouseEvents(...args)
+  })
 })
 
 export default winHandler

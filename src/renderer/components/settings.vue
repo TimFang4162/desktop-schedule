@@ -169,6 +169,15 @@
           <v-col cols="6">
             <v-switch v-model="tempConfig.config.startWithSystem" />
           </v-col>
+          <v-col cols="6">
+            <v-subheader>
+              Main window click through
+            </v-subheader>
+          </v-col>
+
+          <v-col cols="6">
+            <v-switch v-model="tempConfig.config.windowClickThrough" />
+          </v-col>
         </v-row>
       </v-card-text>
       <v-card-title class="text-h6">
