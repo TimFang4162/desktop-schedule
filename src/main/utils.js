@@ -111,3 +111,9 @@ export const migrateConfig = () => {
   }
   }
 }
+
+export const setStartWithSystem = bool => {
+  app.setLoginItemSettings({
+    openAtLogin: bool
+  })
+}

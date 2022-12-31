@@ -18,9 +18,16 @@ const { ipcMain } = require('electron')
 utils.migrateConfig()
 
 function courseClick (course) {
-  shell.config.execPath = shell.which('node').toString()
-  shell.config.silent = true
-  shell.exec('explorer')
+  if (course.action === 'openFtp') {
+    shell.config.execPath = shell.which('node').toString()
+    shell.config.silent = true
+    shell.exec(`explorer.exe ftp://${course.config.$ftp_user}:${course.config.$ftp_pwd}@${course.config.$ftp_ip}/${course.config.$ftp_folder}`)
+  }
+  if (course.action === 'runCommand') {
+    shell.config.execPath = shell.which('node').toString()
+    shell.config.silent = true
+    shell.exec(course.config.$command)
+  }
   console.log(course)
 }
 
@@ -40,6 +47,9 @@ winHandler.onCreated(_browserWindow => {
   })
   ipcMain.on('courseClick', (event, data) => {
     courseClick(data)
+  })
+  ipcMain.on('setStartWithSystem', (event, data) => {
+    utils.setStartWithSystem(data)
   })
   // Or load custom url
   // _browserWindow.loadURL('https://google.com')

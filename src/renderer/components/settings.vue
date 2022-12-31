@@ -1,6 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <v-dialog
+    v-if="reload"
     :value="settingsDialog"
     persistent
     max-width="35%"
@@ -70,7 +71,11 @@
             </v-icon>
             Add course
           </v-btn>
-          <v-btn color="red" text @click="deleteCourse(editCourseId)">
+          <v-btn
+            color="red"
+            text
+            @click="deleteCourse(editCourseId)"
+          >
             <v-icon>
               mdi-trash-can-outline
             </v-icon>
@@ -220,7 +225,7 @@
 
         <v-btn
           text
-          @click="closeDialog()"
+          @click="saveConfig()"
         >
           Save
         </v-btn>
@@ -236,12 +241,20 @@ export default {
   data: () => ({
     editCourses: false,
     editCourseId: null,
-    tempConfig: {}
+    tempConfig: {},
+    reload: true // use for programmic reload vue elements
   }),
   beforeMount () {
     this._generateTempConfig()
+    console.log('mnt')
   },
   methods: {
+    _reload () {
+      this.reload = false
+      this.$nextTick(() => {
+        this.reload = true
+      })
+    },
     _deepcopy (object) {
       return JSON.parse(JSON.stringify(object))
     },
@@ -266,7 +279,7 @@ export default {
       })
       this.editCourseId = String(length)
     },
-    deleteCourse (courseId) {
+    async deleteCourse (courseId) {
       let unused = true
       for (const eachDay in this.tempConfig.schedule) {
         for (const eachCourse in this.tempConfig.schedule[eachDay]) {
@@ -280,11 +293,17 @@ export default {
         this.$delete(this.tempConfig.courses, courseId)
         this.coursesOnEdit()
       } else {
-        this.$dialog.error({
+        await this.$dialog.error({
           text: 'This course is being used in the schedule. Please delete all the courses in the schedule before deleting it',
           title: 'Error'
         })
+        this._reload()
       }
+    },
+    async saveConfig () {
+      await ipcRenderer.send('setStartWithSystem', this.tempConfig.config.startWithSystem)
+      await this._saveTempConfig()
+      this.closeDialog()
     },
     closeDialog () {
       this.$emit('close')
