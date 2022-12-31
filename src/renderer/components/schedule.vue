@@ -57,8 +57,8 @@
                 </v-list-item>
               </v-list-item-group>
               <settings
-                :settings-dialog="settingsDialog"
                 v-if="settingsDialog"
+                :settings-dialog="settingsDialog"
                 :config="config" @close="closeSettings()"
               />
             </v-card>

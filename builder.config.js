@@ -1,28 +1,26 @@
-const ICONS_DIR = 'build/icons/'
-
 const windowsOS = {
   win: {
-    icon: ICONS_DIR + 'win-icon.ico',
     publisherName: 'michal',
     target: 'nsis'
   },
 
   nsis: {
-    differentialPackage: true
+    differentialPackage: true,
+    oneClick: false,
+    allowToChangeInstallationDirectory: true,
+    perMachine: true
   }
 }
 
 const linuxOS = {
   linux: {
-    icon: ICONS_DIR,
     target: 'deb'
   }
 }
 
 const macOS = {
   mac: {
-    target: 'dmg',
-    icon: ICONS_DIR + 'con.icns'
+    target: 'dmg'
   },
   dmg: {
     contents: [
@@ -42,9 +40,10 @@ const macOS = {
 }
 
 module.exports = {
-  productName: 'test1',
-  appId: 'com.example.app',
-  artifactName: 'setup-${version}.${ext}',
+  productName: 'Desktop Schedule',
+  appId: 'com.timfang4162.schedule',
+  // eslint-disable-next-line no-template-curly-in-string
+  artifactName: '${productName}-setup-${version}.${ext}',
   directories: {
     output: 'build'
   },
