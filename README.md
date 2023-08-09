@@ -1,6 +1,6 @@
 # Desktop Schedule 桌面课程表
 
-> An electron-nuxt project
+> 简洁而不失优雅的桌面课程表
 
 #### Setup the project
 

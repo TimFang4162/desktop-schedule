@@ -8,14 +8,14 @@
   >
     <v-card>
       <v-card-title class="text-h5">
-        Settings
+        设置
       </v-card-title>
       <v-card-title class="text-h6">
-        Courses
+        课程配置
         <v-spacer />
         <v-btn text @click="coursesOnEdit()">
           <v-icon>mdi-pencil-outline</v-icon>
-          Edit
+          编辑
         </v-btn>
       </v-card-title>
       <v-card-text>
@@ -24,13 +24,13 @@
             <thead>
               <tr>
                 <th class="text-left">
-                  Ref name
+                  配置名称
                 </th>
                 <th class="text-left">
-                  Course name
+                  课程名称
                 </th>
                 <th class="text-left">
-                  Click action
+                  点击事件
                 </th>
               </tr>
             </thead>
@@ -50,7 +50,7 @@
           <v-row align="center">
             <v-col cols="6">
               <v-subheader>
-                Edit course
+                编辑配置
               </v-subheader>
             </v-col>
 
@@ -69,7 +69,7 @@
             <v-icon>
               mdi-plus
             </v-icon>
-            Add course
+            添加课程配置
           </v-btn>
           <v-btn
             color="red"
@@ -79,12 +79,12 @@
             <v-icon>
               mdi-trash-can-outline
             </v-icon>
-            Delete {{ tempConfig.courses[editCourseId].name }}
+            删除 {{ tempConfig.courses[editCourseId].name }}
           </v-btn>
           <v-row align="center">
             <v-col cols="6">
               <v-subheader>
-                Name
+                课程名称
               </v-subheader>
             </v-col>
 
@@ -93,7 +93,7 @@
             </v-col>
             <v-col cols="6">
               <v-subheader>
-                Click action
+                点击事件
               </v-subheader>
             </v-col>
 
@@ -106,7 +106,7 @@
             <template v-if="tempConfig.courses[editCourseId].action === 'openFtp'">
               <v-col cols="6">
                 <v-subheader>
-                  FTP server IP
+                  FTP 服务器 IP
                 </v-subheader>
               </v-col>
 
@@ -115,7 +115,7 @@
               </v-col>
               <v-col cols="6">
                 <v-subheader>
-                  FTP account
+                  FTP 账号
                 </v-subheader>
               </v-col>
 
@@ -124,7 +124,7 @@
               </v-col>
               <v-col cols="6">
                 <v-subheader>
-                  FTP password
+                  FTP 密码
                 </v-subheader>
               </v-col>
 
@@ -133,7 +133,7 @@
               </v-col>
               <v-col cols="6">
                 <v-subheader>
-                  FTP folder
+                  FTP 路径
                 </v-subheader>
               </v-col>
 
@@ -144,7 +144,7 @@
             <template v-if="tempConfig.courses[editCourseId].action === 'runCommand'">
               <v-col cols="6">
                 <v-subheader>
-                  Command
+                  命令行
                 </v-subheader>
               </v-col>
 
@@ -156,13 +156,13 @@
         </template>
       </v-card-text>
       <v-card-title class="text-h6">
-        General
+        通用
       </v-card-title>
       <v-card-text>
         <v-row align="center">
           <v-col cols="6">
             <v-subheader>
-              Start with system
+              随系统自启动
             </v-subheader>
           </v-col>
 
@@ -171,7 +171,7 @@
           </v-col>
           <v-col cols="6">
             <v-subheader>
-              Main window click through
+              主窗口空白区域点击穿透
             </v-subheader>
           </v-col>
 
@@ -181,13 +181,13 @@
         </v-row>
       </v-card-text>
       <v-card-title class="text-h6">
-        Preferences
+        偏好
       </v-card-title>
       <v-card-text>
         <v-row align="center">
           <v-col cols="6">
             <v-subheader>
-              Theme
+              主题(Coming soon)
             </v-subheader>
           </v-col>
 
@@ -229,14 +229,14 @@
           text
           @click="closeDialog()"
         >
-          Cancel
+          取消
         </v-btn>
 
         <v-btn
           text
           @click="saveConfig()"
         >
-          Save
+          保存
         </v-btn>
       </v-card-actions>
     </v-card>

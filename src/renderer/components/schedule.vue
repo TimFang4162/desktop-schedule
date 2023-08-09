@@ -4,7 +4,7 @@
     <v-list-item>
       <v-list-item-content class="pt-1">
         <v-card-title class="text-h6 pa-0">
-          Schedule
+          课程表
           <v-spacer />
 
           <v-menu
@@ -28,7 +28,7 @@
                     <v-icon>mdi-pencil-outline</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>Edit schedule</v-list-item-title>
+                    <v-list-item-title>编辑</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item @click.stop="settingsDialog = true">
@@ -36,7 +36,7 @@
                     <v-icon>mdi-cog-outline</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>Settings</v-list-item-title>
+                    <v-list-item-title>设置</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item @click.stop="aboutDialog = true">
@@ -44,7 +44,7 @@
                     <v-icon>mdi-information-outline</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>About</v-list-item-title>
+                    <v-list-item-title>关于</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item @click.stop="closeApp()">
@@ -52,7 +52,7 @@
                     <v-icon>mdi-window-close</v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>Exit</v-list-item-title>
+                    <v-list-item-title>退出</v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
@@ -79,7 +79,7 @@
                 <v-icon>mdi-pencil-outline</v-icon>
               </v-btn>
             </template>
-            <span>Quit editing</span>
+            <span>关闭编辑</span>
           </v-tooltip>
         </v-card-title>
         <v-card-title class="pa-0">
@@ -96,7 +96,7 @@
                 {{ nowDate.toLocaleDateString() }} {{ scheduleOfTheDay }}
               </v-btn>
             </template>
-            <span>Switch to current day</span>
+            <span>切换至当前</span>
           </v-tooltip>
           <v-spacer />
           <v-tooltip bottom>
@@ -111,7 +111,7 @@
                 <v-icon>mdi-chevron-left</v-icon>
               </v-btn>
             </template>
-            <span>Previous day</span>
+            <span>前一天</span>
           </v-tooltip>
           <v-tooltip bottom>
             <template #activator="{ on, attrs }">
@@ -125,7 +125,7 @@
                 <v-icon>mdi-chevron-right</v-icon>
               </v-btn>
             </template>
-            <span>Next day</span>
+            <span>后一天</span>
           </v-tooltip>
         </v-card-title>
       </v-list-item-content>
@@ -142,13 +142,13 @@
       >
         <v-card>
           <v-card-title>
-            <span class="text-h5">Edit course {{ onEditId + 1 }}</span>
+            <span class="text-h5">编辑第 {{ onEditId + 1 }} 节课</span>
           </v-card-title>
           <v-card-text>
             <v-row align="center">
               <v-col cols="6">
                 <v-subheader>
-                  Ref to
+                  课程配置
                 </v-subheader>
               </v-col>
 
@@ -164,7 +164,7 @@
               </v-col>
               <v-col cols="6">
                 <v-subheader>
-                  Start time
+                  开始时间
                 </v-subheader>
               </v-col>
 
@@ -195,7 +195,7 @@
               </v-col>
               <v-col cols="6">
                 <v-subheader>
-                  End time
+                  结束时间
                 </v-subheader>
               </v-col>
 
@@ -233,14 +233,14 @@
               text
               @click="editDialog = false"
             >
-              Cancel
+              取消
             </v-btn>
             <v-btn
               color="darken-1"
               text
               @click="courseSaveEdit()"
             >
-              Save
+              保存
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -289,13 +289,13 @@
         </v-card-title>
 
         <v-card-text>
-          Add new course
+          添加新课程
         </v-card-text>
       </v-card>
       <template v-if="config.schedule[scheduleOfTheDay].length === 0">
         <p class="text-center pt-12">
-          No courses today :D
-          <br>Hoorayyy !
+          今日无课
+          <br>好耶 !!!
         </p>
       </template>
     </v-list>

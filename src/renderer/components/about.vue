@@ -11,10 +11,11 @@
       </v-card-title>
       <v-card-text>
         Desktop Schedule {{ metadata.appVersion }}<br>
-        Compiled at {{ metadata.compileTime }}<br>
+        编译于 {{ metadata.compileTime }}<br>
         <a href="https://github.com/TimFang4162/desktop-schedule/">https://github.com/TimFang4162/desktop-schedule/</a><br>
 
-        A simple desktop tool made with ❤.
+        简洁而不失优雅的桌面课程表<br><br>
+        {{ hitokoto }}
       </v-card-text>
 
       <v-card-actions>
@@ -24,7 +25,7 @@
           text
           @click="closeDialog()"
         >
-          Close
+          关闭
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -36,12 +37,22 @@ const { ipcRenderer } = require('electron')
 export default {
   props: ['aboutDialog'],
   data: () => ({
-    metadata: {}
+    metadata: {},
+    hitokoto: ''
   }),
   async mounted () {
     this.metadata = await ipcRenderer.invoke('getMetadata')
+    this.fetchHitokoto()
   },
   methods: {
+    fetchHitokoto () {
+      fetch('https://v1.hitokoto.cn')
+        .then(response => response.json())
+        .then(data => {
+          this.hitokoto = data.hitokoto
+        })
+        .catch(console.error)
+    },
     closeDialog () {
       this.$emit('close')
     }
