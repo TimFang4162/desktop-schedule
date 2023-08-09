@@ -327,7 +327,8 @@ export default {
   },
   mounted () {
     this.updateCurrentTime()
-    clearInterval(myTimeDisplay)
+    // clearInterval(myTimeDisplay)
+    // eslint-disable-next-line no-unused-vars
     const myTimeDisplay = setInterval(() => {
       this.updateCurrentTime()
     }, 1000)
