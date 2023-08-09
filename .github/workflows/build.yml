@@ -2,10 +2,7 @@ name: Release
 
 
 on:
-  push:
-    tags:
-      - v*
-  workflow_dispatch:
+  push
 
 jobs:
   release:
@@ -13,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-22.04]
+        os: [windows-latest]
 
     steps:
       - name: Check out Git repository
