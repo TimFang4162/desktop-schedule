@@ -36,25 +36,25 @@ jobs:
       - name: List
         run: tree /f
 
-      - uses: zattoo/publish@v1
-        with:
-          github_token: ${{github.token}}
-          sources: 'build/*setup*.*'
+      # - uses: zattoo/publish@v1
+      #   with:
+      #     github_token: ${{github.token}}
+      #     sources: 'build/*setup*.*'
 
       - uses: actions/upload-artifact@v3
         with:
           name: DesktopSchedule-mac
-          path: dist_electron/*-universal.dmg
+          path: build/*-universal.dmg
           if-no-files-found: ignore
 
       - uses: actions/upload-artifact@v3
         with:
           name: DesktopSchedule-win
-          path: dist_electron/*Setup*.exe
+          path: build/*Setup*.exe
           if-no-files-found: ignore
 
       - uses: actions/upload-artifact@v3
         with:
           name: DesktopSchedule-linux
-          path: dist_electron/*.deb
+          path: build/*.deb
           if-no-files-found: ignore
