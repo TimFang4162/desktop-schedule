@@ -250,7 +250,7 @@
       >
         <v-card
           :key="index"
-          class="bg-t mb-2"
+          :class="(isTimeBetween(each.time_start,each.time_end,currentTime) ? 'card-highlight' : 'bg-t')+' '+(index-1!=-1 ? (isTimeBetween(config.schedule[scheduleOfTheDay][index-1].time_end,each.time_start,currentTime) ? 'card-highlight-border' : null): (isTimeBetween('00:00',each.time_start,currentTime) ? 'card-highlight-border' : null))+' '+'mb-2'"
           elevation="0"
           ripple
           @click="courseOnClick(config.courses[each.ref])"
@@ -315,7 +315,8 @@ export default {
     editStartTimeMenu: false,
     editEndTimeMenu: false,
     settingsDialog: false,
-    aboutDialog: false
+    aboutDialog: false,
+    currentTime: '14:10'
   }),
   computed: {
     scheduleOfTheDay () {
@@ -325,10 +326,28 @@ export default {
     }
   },
   mounted () {
+    this.updateCurrentTime()
+    clearInterval(myTimeDisplay)
+    const myTimeDisplay = setInterval(() => {
+      this.updateCurrentTime()
+    }, 1000)
   },
   methods: {
     _deepcopy (object) {
       return JSON.parse(JSON.stringify(object))
+    },
+    updateCurrentTime () {
+      const date = new Date()
+      const hours = date.getHours() // 小时
+      const minute = date.getMinutes() // 分
+      const time = hours + ':' + minute
+      this.currentTime = time
+    },
+    isTimeBetween (start, end, check) {
+      const startTime = new Date(`01/01/2021 ${start}`).getTime()
+      const endTime = new Date(`01/01/2021 ${end}`).getTime()
+      const checkTime = new Date(`01/01/2021 ${check}`).getTime()
+      return checkTime >= startTime && checkTime <= endTime
     },
     async courseOnClick (courseId) {
       await ipcRenderer.send('courseClick', courseId)
@@ -420,3 +439,12 @@ export default {
   }
 }
 </script>
+<style>
+.card-highlight-border {
+  border: 2px solid #0D47A1 !important;
+  margin: -2px;
+}
+.card-highlight {
+  background-color: #0D47A1 !important;
+}
+</style>

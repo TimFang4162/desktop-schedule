@@ -18,7 +18,7 @@ module.exports = {
   rules: {
     // StandardJS — The Rules
     indent: ['error', 2], // 2 spaces – for indentation
-    'max-len': ['error', { code: 120 }],
+    'max-len': 'off',
     'no-console': 'off',
     'arrow-parens': ['error', 'as-needed'],
     curly: ['error', 'multi-line'],
@@ -33,6 +33,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
 
     'vue/max-attributes-per-line': 'off',
-    'vue/singleline-html-element-content-newline': 0
+    'vue/singleline-html-element-content-newline': 0,
+    'vue/require-prop-types': 'off'
   }
 }

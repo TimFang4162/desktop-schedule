@@ -1,3 +1,4 @@
+/* eslint-disable nuxt/no-cjs-in-config */
 /**
  * By default, Nuxt.js is configured to cover most use cases.
  * This default configuration can be overwritten in this file
