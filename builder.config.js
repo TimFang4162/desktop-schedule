@@ -3,7 +3,7 @@ module.exports = {
   productName: "Desktop Schedule",
   appId: "com.timfang4162.schedule",
   // eslint-disable-next-line no-template-curly-in-string
-  artifactName: "${productName}-${platformName}-${arch}-setup-${version}.${ext}",
+  artifactName: "${productName}-${os}-${arch}-setup-${version}.${ext}",
   directories: {
     output: "build"
   },
