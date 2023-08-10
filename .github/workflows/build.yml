@@ -2,7 +2,9 @@ name: Release
 
 
 on:
-  push
+  push:
+    tags:
+      - v*
 
 env:
   # Setting an environment variable with the value of a configuration variable
