@@ -33,14 +33,6 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: List
-        run: tree /f
-
-      # - uses: zattoo/publish@v1
-      #   with:
-      #     github_token: ${{github.token}}
-      #     sources: 'build/*setup*.*'
-
       - uses: actions/upload-artifact@v3
         with:
           name: mac
