@@ -316,7 +316,7 @@ export default {
     editEndTimeMenu: false,
     settingsDialog: false,
     aboutDialog: false,
-    currentTime: '14:10'
+    currentTime: ''
   }),
   computed: {
     scheduleOfTheDay () {
@@ -339,14 +339,15 @@ export default {
     },
     updateCurrentTime () {
       const date = new Date()
-      const hours = date.getHours() // 小时
-      const minute = date.getMinutes() // 分
-      const time = hours + ':' + minute
+      const hours = date.getHours()
+      const minute = date.getMinutes()
+      const second = date.getSeconds()
+      const time = hours + ':' + minute + ':' + second
       this.currentTime = time
     },
     isTimeBetween (start, end, check) {
-      const startTime = new Date(`01/01/2021 ${start}`).getTime()
-      const endTime = new Date(`01/01/2021 ${end}`).getTime()
+      const startTime = new Date(`01/01/2021 ${start}:00`).getTime()
+      const endTime = new Date(`01/01/2021 ${end}:00`).getTime()
       const checkTime = new Date(`01/01/2021 ${check}`).getTime()
       return checkTime >= startTime && checkTime <= endTime
     },
