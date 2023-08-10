@@ -1,0 +1,31 @@
+name: Release
+
+
+on:
+  push
+
+env:
+  # Setting an environment variable with the value of a configuration variable
+  GH_TOKEN: ${{ vars.GH_TOKEN }}
+jobs:
+  release:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [windows-latest]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+        with:
+          submodules: "recursive"
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+
+      - name: Print Env
+        run: echo ${{ vars.GH_TOKEN }}
