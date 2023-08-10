@@ -33,13 +33,19 @@ jobs:
       - name: Build
         run: yarn build
 
-      - uses: actions/upload-artifact@v3
+      - name: Upload(mac)
+        uses: actions/upload-artifact@v3
+        if: ${{ runner.os	 == 'macOS' }}
         with:
           name: mac
-          path: build/*.dmg
+          path: |
+            build/*.dmg
+            build/*.zip
           if-no-files-found: ignore
 
-      - uses: actions/upload-artifact@v3
+      - name: Upload(win)
+        uses: actions/upload-artifact@v3
+        if: ${{ runner.os	 == 'Windows' }}
         with:
           name: win
           path: |
@@ -47,7 +53,9 @@ jobs:
             build/*.zip
           if-no-files-found: ignore
 
-      - uses: actions/upload-artifact@v3
+      - name: Upload(linux)
+        uses: actions/upload-artifact@v3
+        if: ${{ runner.os	 == 'Linux' }}
         with:
           name: linux
           path: |
