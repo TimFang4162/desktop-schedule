@@ -2,7 +2,7 @@
 
 > 简洁而不失优雅的桌面课程表
 
-![](images/01.jpg)  
+![](images/01.png)  
 ![](images/02.jpg)
 
 [**下载 / Download**](https://github.com/TimFang4162/desktop-schedule/releases)
