@@ -26,6 +26,7 @@ module.exports = {
     }
   ],
   compression: "maximum",
+  publish: [],
   win: {
     publisherName: "timmy",
     target: [
