@@ -21,11 +21,5 @@ jobs:
         with:
           submodules: "recursive"
 
-      - name: Install Node.js, NPM and Yarn
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'yarn'
-
       - name: Print Env
         run: echo ${{ vars.GH_TOKEN }}
