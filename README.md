@@ -2,6 +2,11 @@
 
 > 简洁而不失优雅的桌面课程表
 
+![](images/01.jpg)  
+![](images/02.jpg)
+
+[**下载 / Download**](https://github.com/TimFang4162/desktop-schedule/releases)
+
 #### Setup the project
 
 ```bash
@@ -24,17 +29,16 @@ yarn lint:fix
 
 > Tips
 > 不支持 node v17+(由于 OpenSSL 3.0)。最高的可用版本为 node v16
-> 在接下来的版本中将会修复此Bug
-
+> 在接下来的版本中将会修复此 Bug
 
 > Tips
 > 设置 npm 和 yarn 国内镜像源
+>
 > ```bash
 > npm config set registry https://registry.npmmirror.com
 > yarn config set registry https://registry.npmmirror.com
 > npm config set electron_mirror=https://registry.npmmirror.com/-/binary/electron/
 > ```
-
 
 ---
 
