@@ -159,26 +159,27 @@
         通用
       </v-card-title>
       <v-card-text>
-        <v-row align="center">
-          <v-col cols="6">
-            <v-subheader>
-              随系统自启动
-            </v-subheader>
-          </v-col>
+        <v-switch v-model="tempConfig.config.startWithSystem" label="随系统自启动" />
 
-          <v-col cols="6">
-            <v-switch v-model="tempConfig.config.startWithSystem" />
-          </v-col>
-          <v-col cols="6">
-            <v-subheader>
-              主窗口空白区域点击穿透
-            </v-subheader>
-          </v-col>
+        <v-switch v-model="tempConfig.config.windowClickThrough" label="主窗口空白区域点击穿透" />
 
-          <v-col cols="6">
-            <v-switch v-model="tempConfig.config.windowClickThrough" />
-          </v-col>
-        </v-row>
+        <v-slider
+          v-model="tempConfig.config.scale"
+          step="0.05"
+          :max="2.0"
+          :min="0.1"
+          label="界面缩放"
+          class="align-center"
+        >
+          <template #append>
+            <v-text-field
+              v-model="tempConfig.config.scale"
+              class="mt-0 pt-0"
+              type="number"
+              style="width: 60px"
+            />
+          </template>
+        </v-slider>
       </v-card-text>
       <v-card-title class="text-h6">
         偏好

@@ -10,7 +10,7 @@ module.exports = {
   ssr: false,
   target: 'static',
   head: {
-    title: 'test1',
+    title: '桌面课程表',
     meta: [{ charset: 'utf-8' }]
   },
   loading: false,

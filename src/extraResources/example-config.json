@@ -93,8 +93,10 @@
         },
         "11": {
             "name": "音乐",
-            "action": "doNothing",
-            "config": {}
+            "action": "runCommand",
+            "config": {
+                "$command": "nautilus /home/timmy/CodeSpace"
+            }
         }
     },
     "schedule": {
@@ -308,6 +310,8 @@
         "sun": []
     },
     "config": {
-        "theme": "dark"
+        "theme": "dark",
+        "schemaVersion": "1.0.0",
+        "windowClickThrough": false
     }
 }

@@ -1,5 +1,5 @@
 <template>
-  <v-app style="background: transparent;">
+  <v-app :style="'background: transparent; zoom: '+config.config.scale+';'">
     <schedule class="bg-t" :config="config" />
     <v-main id="click-through">
       <!-- <v-container>
