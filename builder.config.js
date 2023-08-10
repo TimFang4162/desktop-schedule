@@ -1,7 +1,43 @@
-const windowsOS = {
+/* eslint-disable quotes */
+module.exports = {
+  productName: "Desktop Schedule",
+  appId: "com.timfang4162.schedule",
+  // eslint-disable-next-line no-template-curly-in-string
+  artifactName: "${productName}-setup-${version}.${ext}",
+  directories: {
+    output: "build"
+  },
+  publish: 'never',
+  // default files: https://www.electron.build/configuration/contents
+  files: [
+    "package.json",
+    {
+      from: "dist/main/",
+      to: "dist/main/"
+    },
+    {
+      from: "dist/renderer",
+      to: "dist/renderer/"
+    }
+  ],
+  extraResources: [
+    {
+      from: "src/extraResources/",
+      to: ""
+    }
+  ],
+  compression: "maximum",
   win: {
-    publisherName: 'michal',
-    target: 'nsis'
+    publisherName: "timmy",
+    target: [
+      {
+        target: "nsis",
+        arch: ["x64", "ia32"]
+      },
+      {
+        target: "zip"
+      }
+    ]
   },
 
   nsis: {
@@ -9,63 +45,29 @@ const windowsOS = {
     oneClick: false,
     allowToChangeInstallationDirectory: true,
     perMachine: true
-  }
-}
-
-const linuxOS = {
+  },
   linux: {
-    target: 'deb'
-  }
-}
-
-const macOS = {
+    target: [{ target: "AppImage" }, { target: "tar.gz" }]
+  },
   mac: {
-    target: 'dmg'
+    target: [{ target: "dmg" }, { target: "zip" }]
   },
   dmg: {
     contents: [
       {
         x: 410,
         y: 150,
-        type: 'link',
-        path: '/Applications'
+        type: "link",
+        path: "/Applications"
       },
       {
         x: 130,
         y: 150,
-        type: 'file'
+        type: "file"
       }
     ]
-  }
-}
-
-module.exports = {
-  productName: 'Desktop Schedule',
-  appId: 'com.timfang4162.schedule',
-  // eslint-disable-next-line no-template-curly-in-string
-  artifactName: '${productName}-setup-${version}.${ext}',
-  directories: {
-    output: 'build'
   },
-  // default files: https://www.electron.build/configuration/contents
-  files: [
-    'package.json',
-    {
-      from: 'dist/main/',
-      to: 'dist/main/'
-    },
-    {
-      from: 'dist/renderer',
-      to: 'dist/renderer/'
-    }
-  ],
-  extraResources: [
-    {
-      from: 'src/extraResources/',
-      to: ''
-    }
-  ],
-  ...windowsOS,
-  ...linuxOS,
-  ...macOS
+  afterAllArtifactBuild: buildResult => {
+    console.log(JSON.stringify(buildResult))
+  }
 }

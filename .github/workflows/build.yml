@@ -1,0 +1,99 @@
+name: Release
+
+
+on:
+  push
+
+env:
+  # Setting an environment variable with the value of a configuration variable
+  GH_TOKEN: ${{ vars.GH_TOKEN }}
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [windows-latest]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+        with:
+          submodules: "recursive"
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+
+      - name: Install Deps
+        run: yarn
+
+      - name: Build
+        run: yarn build
+
+      - name: List
+        run: tree /f
+
+      # - uses: zattoo/publish@v1
+      #   with:
+      #     github_token: ${{github.token}}
+      #     sources: 'build/*setup*.*'
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: mac
+          path: build/*.dmg
+          if-no-files-found: ignore
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: win
+          path: |
+            build/*.exe
+            build/*.zip
+          if-no-files-found: ignore
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: linux
+          path: |
+            build/*.tar.gz
+            build/*.AppImage
+          if-no-files-found: ignore
+  release:
+    runs-on: ubuntu-latest
+    needs: [ build ]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Download results (Linux & Windows)
+        uses: actions/download-artifact@v2
+        with:
+          name: mac
+          path: build
+
+      - name: Download results (Mac OS)
+        uses: actions/download-artifact@v2
+        with:
+          name: win
+          path: build
+
+      - name: Download results (Windows)
+        uses: actions/download-artifact@v2
+        with:
+          name: linux
+          path: build
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GH_TOKEN }}
+          file: build/*
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true

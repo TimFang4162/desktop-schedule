@@ -13,10 +13,10 @@ jobs:
         os: [windows-latest]
 
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v3
-        with:
-          submodules: "recursive"
+    #   - name: Check out Git repository
+    #     uses: actions/checkout@v3
+    #     with:
+    #       submodules: "recursive"
 
       - name: Print Env
         run: echo "$env:GH_TOKEN"
