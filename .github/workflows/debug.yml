@@ -19,4 +19,4 @@ jobs:
           submodules: "recursive"
 
       - name: Print Env
-        run: echo ${{ env.GH_TOKEN }}
+        run: echo ${{ secrets.GH_TOKEN }}
