@@ -1,9 +1,9 @@
 name: Release
 
+on: push
 
-on:
-  push
-
+env:
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
 jobs:
   release:
     runs-on: ${{ matrix.os }}
@@ -19,4 +19,4 @@ jobs:
           submodules: "recursive"
 
       - name: Print Env
-        run: echo ${{ secrets.GH_TOKEN }}
+        run: echo "$env:GH_TOKEN"
