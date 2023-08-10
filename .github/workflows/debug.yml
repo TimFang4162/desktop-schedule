@@ -3,7 +3,7 @@ name: Release
 on: push
 
 env:
-  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  GH_TOKEN: ${{ github.token }}
 jobs:
   release:
     runs-on: ${{ matrix.os }}
