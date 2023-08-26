@@ -313,6 +313,7 @@
         "theme": "dark",
         "schemaVersion": "1.0.0",
         "windowClickThrough": false,
-        "navigationDrawerWidth": 220
+        "navigationDrawerWidth": 12,
+        "scale": 100
     }
 }

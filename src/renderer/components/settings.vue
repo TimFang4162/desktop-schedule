@@ -165,10 +165,10 @@
 
         <v-slider
           v-model="tempConfig.config.scale"
-          step="0.05"
-          :max="2.0"
-          :min="0.1"
-          label="界面缩放"
+          step="5"
+          :max="200"
+          :min="10"
+          label="界面缩放(%)"
           class="align-center"
         >
           <template #append>
@@ -182,10 +182,10 @@
         </v-slider>
         <v-slider
           v-model="tempConfig.config.navigationDrawerWidth"
-          step="5"
-          :max="500"
-          :min="100"
-          label="侧栏宽度"
+          step="1"
+          :max="100"
+          :min="10"
+          label="侧栏宽度(%)"
           class="align-center"
         >
           <template #append>
