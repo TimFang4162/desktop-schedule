@@ -312,6 +312,7 @@
     "config": {
         "theme": "dark",
         "schemaVersion": "1.0.0",
-        "windowClickThrough": false
+        "windowClickThrough": false,
+        "navigationDrawerWidth": 220
     }
 }

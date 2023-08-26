@@ -180,6 +180,23 @@
             />
           </template>
         </v-slider>
+        <v-slider
+          v-model="tempConfig.config.navigationDrawerWidth"
+          step="5"
+          :max="500"
+          :min="100"
+          label="侧栏宽度"
+          class="align-center"
+        >
+          <template #append>
+            <v-text-field
+              v-model="tempConfig.config.navigationDrawerWidth"
+              class="mt-0 pt-0"
+              type="number"
+              style="width: 60px"
+            />
+          </template>
+        </v-slider>
       </v-card-text>
       <v-card-title class="text-h6">
         偏好
