@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <v-navigation-drawer permanent app :width="config.config.navigationDrawerWidth/(config.config.scale/config.config.scale)+'%'" :height="100/(config.config.scale/config.config.scale)+'%'">
+  <v-navigation-drawer permanent app :width="config.config.navigationDrawerWidth/(config.config.scale/config.config.scale)+'%'" :height="100/(config.config.scale/config.config.scale)+'%'" :right="config.config.navigationDrawerPositionR">
     <!-- force update -->
     <v-list-item>
       <v-list-item-content class="pt-1">

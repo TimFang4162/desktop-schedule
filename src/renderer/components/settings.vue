@@ -197,6 +197,8 @@
             />
           </template>
         </v-slider>
+
+        <v-switch v-model="tempConfig.config.navigationDrawerPositionR" label="侧栏右置" />
       </v-card-text>
       <v-card-title class="text-h6">
         偏好
