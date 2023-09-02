@@ -1,8 +1,8 @@
+import path from 'path'
 import BrowserWinHandler from './BrowserWinHandler'
 import * as utils from './utils'
-import path from 'path'
 const exec = require('child_process').exec
-const { ipcMain, BrowserWindow,shell,app } = require('electron')
+const { ipcMain, BrowserWindow, shell, app, dialog } = require('electron')
 
 utils.migrateConfig()
 
@@ -12,6 +12,9 @@ function courseClick (course) {
   }
   if (course.action === 'runCommand') {
     exec(course.config.$command)
+  }
+  if (course.action === 'openPath') {
+    shell.openPath(course.config.$path)
   }
   console.log(course)
 }
@@ -28,6 +31,9 @@ winHandler.onCreated(_browserWindow => {
   _browserWindow.maximize()
   ipcMain.handle('getMetadata', utils.getMetadata)
   ipcMain.handle('readConfig', utils.readConfig)
+  ipcMain.handle('selectFolder', async () => {
+    return await dialog.showOpenDialogSync({ properties: ['openDirectory'] })
+  })
   ipcMain.on('saveConfig', (event, data) => {
     utils.saveConfig(data)
   })

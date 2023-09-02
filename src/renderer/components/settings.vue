@@ -33,7 +33,7 @@
               <tr v-for="(course, index) in tempConfig.courses" :key="index">
                 <td>{{ index }}</td>
                 <td>{{ course.name }}</td>
-                <td>{{ course.action }}</td>
+                <td>{{ clickActions[course.action].hint }}</td>
               </tr>
             </tbody>
           </template>
@@ -47,8 +47,10 @@
             </v-col>
 
             <v-col cols="6">
-              <v-select v-model="editCourseId" :items="Object.entries(tempConfig.courses)" item-text="[1].name"
-                item-value="[0]" label="Select" single-line />
+              <v-select
+                v-model="editCourseId" :items="Object.entries(tempConfig.courses)" item-text="[1].name"
+                item-value="[0]" label="Select" single-line
+              />
             </v-col>
           </v-row>
           <v-btn text @click="addCourse()">
@@ -80,8 +82,22 @@
             </v-col>
 
             <v-col cols="6">
-              <v-select v-model="tempConfig.courses[editCourseId].action"
-                :items="['doNothing', 'openFtp', 'runCommand']" />
+              <v-menu offset-y>
+                <template #activator="{ on, attrs }">
+                  <v-text-field
+                    v-bind="attrs" readonly :value="clickActions[tempConfig.courses[editCourseId].action].hint"
+                    v-on="on"
+                  />
+                </template>
+                <v-list>
+                  <v-list-item
+                    v-for="(each, index) in clickActions" :key="index"
+                    link @click="tempConfig.courses[editCourseId].action = index"
+                  >
+                    <v-list-item-title>{{ each.hint }}</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
             </v-col>
             <template v-if="tempConfig.courses[editCourseId].action === 'openFtp'">
               <v-col cols="6">
@@ -132,6 +148,18 @@
                 <v-text-field v-model="tempConfig.courses[editCourseId].config.$command" />
               </v-col>
             </template>
+            <template v-if="tempConfig.courses[editCourseId].action === 'openPath'">
+              <v-col cols="6">
+                <v-subheader>
+                  文件夹路径
+                </v-subheader>
+              </v-col>
+
+              <v-col cols="6">
+                <v-text-field v-model="tempConfig.courses[editCourseId].config.$path" />
+                <v-btn text @click="selectFolder()">选择</v-btn>
+              </v-col>
+            </template>
           </v-row>
         </template>
       </v-card-text>
@@ -143,16 +171,26 @@
 
         <v-switch v-model="tempConfig.settings['general.windowClickThrough']" label="主窗口空白区域点击穿透" />
 
-        <v-slider v-model="tempConfig.settings['general.scale']" step="5" :max="200" :min="10" label="界面缩放(%)" class="align-center">
+        <v-slider
+          v-model="tempConfig.settings['general.scale']" step="5" :max="200" :min="10" label="界面缩放(%)"
+          class="align-center"
+        >
           <template #append>
-            <v-text-field v-model="tempConfig.settings['general.scale']" class="mt-0 pt-0" type="number" style="width: 60px" />
+            <v-text-field
+              v-model="tempConfig.settings['general.scale']" class="mt-0 pt-0" type="number"
+              style="width: 60px"
+            />
           </template>
         </v-slider>
-        <v-slider v-model="tempConfig.settings['general.navigationDrawerWidth']" step="1" :max="100" :min="10" label="侧栏宽度(%)"
-          class="align-center">
+        <v-slider
+          v-model="tempConfig.settings['general.navigationDrawerWidth']" step="1" :max="100" :min="10"
+          label="侧栏宽度(%)" class="align-center"
+        >
           <template #append>
-            <v-text-field v-model="tempConfig.settings['general.navigationDrawerWidth']" class="mt-0 pt-0" type="number"
-              style="width: 60px" />
+            <v-text-field
+              v-model="tempConfig.settings['general.navigationDrawerWidth']" class="mt-0 pt-0" type="number"
+              style="width: 60px"
+            />
           </template>
         </v-slider>
 
@@ -193,7 +231,7 @@
 
       <v-card-actions>
         <v-menu offset-y>
-          <template v-slot:activator="{ on, attrs }">
+          <template #activator="{ on, attrs }">
             <v-btn text v-bind="attrs" v-on="on">
               高级
             </v-btn>
@@ -229,34 +267,40 @@ export default {
     editCourses: false,
     editCourseId: null,
     tempConfig: {},
-    reload: true // use for programmic reload vue elements
+    reload: true, // use for programmic reload vue elements
+    clickActions: {
+      openFtp: { hint: '打开FTP地址(Windows)' },
+      runCommand: { hint: '运行命令' },
+      openPath: { hint: '打开文件夹' },
+      doNothing: { hint: '无操作' }
+    }
   }),
-  beforeMount() {
+  beforeMount () {
     this._generateTempConfig()
     console.log('mnt')
   },
   methods: {
-    _reload() {
+    _reload () {
       this.reload = false
       this.$nextTick(() => {
         this.reload = true
       })
     },
-    _deepcopy(object) {
+    _deepcopy (object) {
       return JSON.parse(JSON.stringify(object))
     },
-    _generateTempConfig() {
+    _generateTempConfig () {
       this.tempConfig = this._deepcopy(this.config)
     },
-    async _saveTempConfig() {
+    async _saveTempConfig () {
       await ipcRenderer.send('saveConfig', this.tempConfig)
       await this.$nuxt.refresh()
     },
-    coursesOnEdit() {
+    coursesOnEdit () {
       this.editCourseId = Object.entries(this.tempConfig.courses)[0][0]
       this.editCourses = true
     },
-    addCourse() {
+    addCourse () {
       const length = Object.entries(this.tempConfig.courses).length
       this.$set(this.tempConfig.courses, String(length), {
         name: '',
@@ -266,7 +310,7 @@ export default {
       })
       this.editCourseId = String(length)
     },
-    async deleteCourse(courseId) {
+    async deleteCourse (courseId) {
       let unused = true
       for (const eachDay in this.tempConfig.schedule) {
         for (const eachCourse in this.tempConfig.schedule[eachDay]) {
@@ -287,19 +331,26 @@ export default {
         this._reload()
       }
     },
-    async saveConfig() {
+    async saveConfig () {
       await ipcRenderer.send('setStartWithSystem', this.tempConfig.settings['general.startWithSystem'])
       await this._saveTempConfig()
       this.closeDialog()
     },
-    closeDialog() {
+    closeDialog () {
       this.$emit('close')
     },
-    async openDevTools(){
+    async openDevTools () {
       await ipcRenderer.send('openDevTools')
     },
-    async openConfigFolder(){
+    async openConfigFolder () {
       await ipcRenderer.send('openConfigFolder')
+    },
+    async selectFolder () {
+      const result = await ipcRenderer.invoke('selectFolder')
+      if (result !== undefined) {
+        this.$set(this.tempConfig.courses[this.editCourseId].config, '$path', result[0])
+        // this.tempConfig.courses[this.editCourseId].config.$path = result[0]
+      }
     }
   }
 }
