@@ -1,11 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <v-dialog
-    v-if="reload"
-    :value="settingsDialog"
-    persistent
-    max-width="35%"
-  >
+  <v-dialog v-if="reload" :value="settingsDialog" persistent max-width="35%">
     <v-card>
       <v-card-title class="text-h5">
         设置
@@ -35,10 +30,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr
-                v-for="(course, index) in tempConfig.courses"
-                :key="index"
-              >
+              <tr v-for="(course, index) in tempConfig.courses" :key="index">
                 <td>{{ index }}</td>
                 <td>{{ course.name }}</td>
                 <td>{{ course.action }}</td>
@@ -55,14 +47,8 @@
             </v-col>
 
             <v-col cols="6">
-              <v-select
-                v-model="editCourseId"
-                :items="Object.entries(tempConfig.courses)"
-                item-text="[1].name"
-                item-value="[0]"
-                label="Select"
-                single-line
-              />
+              <v-select v-model="editCourseId" :items="Object.entries(tempConfig.courses)" item-text="[1].name"
+                item-value="[0]" label="Select" single-line />
             </v-col>
           </v-row>
           <v-btn text @click="addCourse()">
@@ -71,11 +57,7 @@
             </v-icon>
             添加课程配置
           </v-btn>
-          <v-btn
-            color="red"
-            text
-            @click="deleteCourse(editCourseId)"
-          >
+          <v-btn color="red" text @click="deleteCourse(editCourseId)">
             <v-icon>
               mdi-trash-can-outline
             </v-icon>
@@ -98,10 +80,8 @@
             </v-col>
 
             <v-col cols="6">
-              <v-select
-                v-model="tempConfig.courses[editCourseId].action"
-                :items="['doNothing', 'openFtp', 'runCommand']"
-              />
+              <v-select v-model="tempConfig.courses[editCourseId].action"
+                :items="['doNothing', 'openFtp', 'runCommand']" />
             </v-col>
             <template v-if="tempConfig.courses[editCourseId].action === 'openFtp'">
               <v-col cols="6">
@@ -163,38 +143,16 @@
 
         <v-switch v-model="tempConfig.config.windowClickThrough" label="主窗口空白区域点击穿透" />
 
-        <v-slider
-          v-model="tempConfig.config.scale"
-          step="5"
-          :max="200"
-          :min="10"
-          label="界面缩放(%)"
-          class="align-center"
-        >
+        <v-slider v-model="tempConfig.config.scale" step="5" :max="200" :min="10" label="界面缩放(%)" class="align-center">
           <template #append>
-            <v-text-field
-              v-model="tempConfig.config.scale"
-              class="mt-0 pt-0"
-              type="number"
-              style="width: 60px"
-            />
+            <v-text-field v-model="tempConfig.config.scale" class="mt-0 pt-0" type="number" style="width: 60px" />
           </template>
         </v-slider>
-        <v-slider
-          v-model="tempConfig.config.navigationDrawerWidth"
-          step="1"
-          :max="100"
-          :min="10"
-          label="侧栏宽度(%)"
-          class="align-center"
-        >
+        <v-slider v-model="tempConfig.config.navigationDrawerWidth" step="1" :max="100" :min="10" label="侧栏宽度(%)"
+          class="align-center">
           <template #append>
-            <v-text-field
-              v-model="tempConfig.config.navigationDrawerWidth"
-              class="mt-0 pt-0"
-              type="number"
-              style="width: 60px"
-            />
+            <v-text-field v-model="tempConfig.config.navigationDrawerWidth" class="mt-0 pt-0" type="number"
+              style="width: 60px" />
           </template>
         </v-slider>
 
@@ -212,18 +170,9 @@
           </v-col>
 
           <v-col cols="6">
-            <v-radio-group
-              v-model="tempConfig.config.theme"
-              row
-            >
-              <v-radio
-                label="浅色"
-                value="light"
-              />
-              <v-radio
-                label="深色"
-                value="dark"
-              />
+            <v-radio-group v-model="tempConfig.config.theme" row>
+              <v-radio label="浅色" value="light" />
+              <v-radio label="深色" value="dark" />
             </v-radio-group>
           </v-col>
           <!-- <v-col cols="6">
@@ -243,19 +192,28 @@
       </v-card-text>
 
       <v-card-actions>
+        <v-menu offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn text v-bind="attrs" v-on="on">
+              高级
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item link @click="openDevTools()">
+              <v-list-item-title>启动开发者工具</v-list-item-title>
+            </v-list-item>
+            <v-list-item link @click="openConfigFolder()">
+              <v-list-item-title>打开配置文件夹</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
         <v-spacer />
 
-        <v-btn
-          text
-          @click="closeDialog()"
-        >
+        <v-btn text @click="closeDialog()">
           取消
         </v-btn>
 
-        <v-btn
-          text
-          @click="saveConfig()"
-        >
+        <v-btn text @click="saveConfig()">
           保存
         </v-btn>
       </v-card-actions>
@@ -273,32 +231,32 @@ export default {
     tempConfig: {},
     reload: true // use for programmic reload vue elements
   }),
-  beforeMount () {
+  beforeMount() {
     this._generateTempConfig()
     console.log('mnt')
   },
   methods: {
-    _reload () {
+    _reload() {
       this.reload = false
       this.$nextTick(() => {
         this.reload = true
       })
     },
-    _deepcopy (object) {
+    _deepcopy(object) {
       return JSON.parse(JSON.stringify(object))
     },
-    _generateTempConfig () {
+    _generateTempConfig() {
       this.tempConfig = this._deepcopy(this.config)
     },
-    async _saveTempConfig () {
+    async _saveTempConfig() {
       await ipcRenderer.send('saveConfig', this.tempConfig)
       await this.$nuxt.refresh()
     },
-    coursesOnEdit () {
+    coursesOnEdit() {
       this.editCourseId = Object.entries(this.tempConfig.courses)[0][0]
       this.editCourses = true
     },
-    addCourse () {
+    addCourse() {
       const length = Object.entries(this.tempConfig.courses).length
       this.$set(this.tempConfig.courses, String(length), {
         name: '',
@@ -308,7 +266,7 @@ export default {
       })
       this.editCourseId = String(length)
     },
-    async deleteCourse (courseId) {
+    async deleteCourse(courseId) {
       let unused = true
       for (const eachDay in this.tempConfig.schedule) {
         for (const eachCourse in this.tempConfig.schedule[eachDay]) {
@@ -329,13 +287,19 @@ export default {
         this._reload()
       }
     },
-    async saveConfig () {
+    async saveConfig() {
       await ipcRenderer.send('setStartWithSystem', this.tempConfig.config.startWithSystem)
       await this._saveTempConfig()
       this.closeDialog()
     },
-    closeDialog () {
+    closeDialog() {
       this.$emit('close')
+    },
+    async openDevTools(){
+      await ipcRenderer.send('openDevTools')
+    },
+    async openConfigFolder(){
+      await ipcRenderer.send('openConfigFolder')
     }
   }
 }

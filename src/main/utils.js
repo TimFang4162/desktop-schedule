@@ -92,7 +92,7 @@ export const migrateConfig = () => {
   switch (compareVersion(configVersion, appVersion)) {
   case 1: {
     dialog.showErrorBox('Error',
-      `The version of the config file(${configVersion}) is higher than the program version(&{appVersion}). Please download the latest version and try again.`)
+      `配置文件版本(${configVersion})高于程序版本(&{appVersion})，它可能由更新的课程表生成。请下载最新的课程表并重试。`)
     app.exit()
     break
   }
@@ -100,7 +100,7 @@ export const migrateConfig = () => {
   case -1: {
     console.log('update config')
     if (configVersion === '0.0.0') {
-      dialog.showErrorBox('Failed to migrate config', `The version of the config file(${configVersion}) cannot be migrated. It will be overwritten with the latest config file.`)
+      dialog.showErrorBox('无法更新配置文件', `当前的配置文件由旧版本课程表(${configVersion})生成，无法迁移到新版本。它将会被新版本配置文件覆盖。`)
       removeConfig()
       checkConfigExists()
     } else {

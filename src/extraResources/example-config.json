@@ -316,5 +316,14 @@
         "navigationDrawerWidth": 12,
         "navigationDrawerPositionR": false,
         "scale": 100
+    },
+    "settings":{
+        "app.schemaVersion": "1.0.0",
+        "general.startWithSystem": false,
+        "general.windowClickThrough": false,
+        "general.scale": 100,
+        "general.navigationDrawerWidth":12,
+        "general.navigationDrawerPositionR": false,
+        "preference.theme":"dark"
     }
 }

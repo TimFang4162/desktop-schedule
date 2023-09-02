@@ -1,7 +1,8 @@
 import BrowserWinHandler from './BrowserWinHandler'
 import * as utils from './utils'
+import path from 'path'
 const exec = require('child_process').exec
-const { ipcMain, BrowserWindow } = require('electron')
+const { ipcMain, BrowserWindow,shell,app } = require('electron')
 
 utils.migrateConfig()
 
@@ -35,6 +36,12 @@ winHandler.onCreated(_browserWindow => {
   })
   ipcMain.on('setStartWithSystem', (event, data) => {
     utils.setStartWithSystem(data)
+  })
+  ipcMain.on('openDevTools', (event, data) => {
+    _browserWindow.webContents.openDevTools()
+  })
+  ipcMain.on('openConfigFolder', (event, data) => {
+    shell.showItemInFolder(path.join(app.getPath('userData'), 'schedule-config.json'))
   })
   ipcMain.on('set-ignore-mouse-events', (event, ...args) => {
     const win = BrowserWindow.fromWebContents(event.sender)
