@@ -139,24 +139,24 @@
         通用
       </v-card-title>
       <v-card-text>
-        <v-switch v-model="tempConfig.config.startWithSystem" label="随系统自启动" />
+        <v-switch v-model="tempConfig.settings['general.startWithSystem']" label="随系统自启动" />
 
-        <v-switch v-model="tempConfig.config.windowClickThrough" label="主窗口空白区域点击穿透" />
+        <v-switch v-model="tempConfig.settings['general.windowClickThrough']" label="主窗口空白区域点击穿透" />
 
-        <v-slider v-model="tempConfig.config.scale" step="5" :max="200" :min="10" label="界面缩放(%)" class="align-center">
+        <v-slider v-model="tempConfig.settings['general.scale']" step="5" :max="200" :min="10" label="界面缩放(%)" class="align-center">
           <template #append>
-            <v-text-field v-model="tempConfig.config.scale" class="mt-0 pt-0" type="number" style="width: 60px" />
+            <v-text-field v-model="tempConfig.settings['general.scale']" class="mt-0 pt-0" type="number" style="width: 60px" />
           </template>
         </v-slider>
-        <v-slider v-model="tempConfig.config.navigationDrawerWidth" step="1" :max="100" :min="10" label="侧栏宽度(%)"
+        <v-slider v-model="tempConfig.settings['general.navigationDrawerWidth']" step="1" :max="100" :min="10" label="侧栏宽度(%)"
           class="align-center">
           <template #append>
-            <v-text-field v-model="tempConfig.config.navigationDrawerWidth" class="mt-0 pt-0" type="number"
+            <v-text-field v-model="tempConfig.settings['general.navigationDrawerWidth']" class="mt-0 pt-0" type="number"
               style="width: 60px" />
           </template>
         </v-slider>
 
-        <v-switch v-model="tempConfig.config.navigationDrawerPositionR" label="侧栏右置" />
+        <v-switch v-model="tempConfig.settings['general.navigationDrawerPositionR']" label="侧栏右置" />
       </v-card-text>
       <v-card-title class="text-h6">
         偏好
@@ -170,7 +170,7 @@
           </v-col>
 
           <v-col cols="6">
-            <v-radio-group v-model="tempConfig.config.theme" row>
+            <v-radio-group v-model="tempConfig.settings['preference.theme']" row>
               <v-radio label="浅色" value="light" />
               <v-radio label="深色" value="dark" />
             </v-radio-group>
@@ -288,7 +288,7 @@ export default {
       }
     },
     async saveConfig() {
-      await ipcRenderer.send('setStartWithSystem', this.tempConfig.config.startWithSystem)
+      await ipcRenderer.send('setStartWithSystem', this.tempConfig.settings['general.startWithSystem'])
       await this._saveTempConfig()
       this.closeDialog()
     },

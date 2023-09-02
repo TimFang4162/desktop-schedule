@@ -309,14 +309,6 @@
         ],
         "sun": []
     },
-    "config": {
-        "theme": "dark",
-        "schemaVersion": "1.0.0",
-        "windowClickThrough": false,
-        "navigationDrawerWidth": 12,
-        "navigationDrawerPositionR": false,
-        "scale": 100
-    },
     "settings":{
         "app.schemaVersion": "1.0.0",
         "general.startWithSystem": false,

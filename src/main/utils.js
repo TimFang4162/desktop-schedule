@@ -40,11 +40,20 @@ export const getMetadata = () => {
 }
 
 export const readConfig = () => {
-  const data = fs.readFileSync(
+  const data = JSON.parse(fs.readFileSync(
     configPath,
     'utf8'
-  )
-  return JSON.parse(data.toString())
+  ).toString())
+  const example = JSON.parse(fs.readFileSync(
+    exampleConfigPath,
+    'utf8'
+  ).toString())
+  for (const each in example.settings){
+    if (!(each in data.settings)) {
+      data.settings[each] = example.settings[each]
+    }
+  } 
+  return data
 }
 
 export const saveConfig = data => {
@@ -61,11 +70,11 @@ export const removeConfig = () => {
 
 export const saveConfigVersionNumber = () => {
   const temp = readConfig()
-  temp.config.schemaVersion = appVersion
+  temp.settings["app.schemaVersion"] = appVersion
   saveConfig(temp)
 }
 
-function checkConfigExists () {
+function checkConfigExists() {
   const isExists = fs.existsSync(configPath)
   if (isExists) {
     console.log('Config file exists.')
@@ -82,37 +91,37 @@ function checkConfigExists () {
     console.log('Config file generated.')
   }
 }
-
 export const migrateConfig = () => {
   checkConfigExists()
   const config = readConfig()
-  const configVersion = config.config.schemaVersion
-    ? config.config.schemaVersion
+  const configVersion = config.settings["app.schemaVersion"]
+    ? config.settings["app.schemaVersion"]
     : '0.0.0'
+  console.log(config.settings["app.schemaVersion"])
   switch (compareVersion(configVersion, appVersion)) {
-  case 1: {
-    dialog.showErrorBox('Error',
-      `配置文件版本(${configVersion})高于程序版本(&{appVersion})，它可能由更新的课程表生成。请下载最新的课程表并重试。`)
-    app.exit()
-    break
-  }
-
-  case -1: {
-    console.log('update config')
-    if (configVersion === '0.0.0') {
-      dialog.showErrorBox('无法更新配置文件', `当前的配置文件由旧版本课程表(${configVersion})生成，无法迁移到新版本。它将会被新版本配置文件覆盖。`)
-      removeConfig()
-      checkConfigExists()
-    } else {
-      // console.log(Object.assign(config, { config: { schemaVersion: '0.0.4' } }))
-      saveConfigVersionNumber()
+    case 1: {
+      dialog.showErrorBox('Error',
+        `配置文件版本(${configVersion})高于程序版本(&{appVersion})，它可能由更新的课程表生成。请下载最新的课程表并重试。`)
+      app.exit()
+      break
     }
-    break
-  }
 
-  case 0: {
-    return config
-  }
+    case -1: {
+      console.log('update config')
+      if (configVersion === '0.0.0') {
+        dialog.showErrorBox('无法更新配置文件', `当前的配置文件由旧版本课程表(${configVersion})生成，无法迁移到新版本。它将会被新版本配置文件覆盖。`)
+        removeConfig()
+        checkConfigExists()
+      } else {
+        // console.log(Object.assign(config, { config: { schemaVersion: '0.0.4' } }))
+        saveConfigVersionNumber()
+      }
+      break
+    }
+
+    case 0: {
+      return config
+    }
   }
 }
 

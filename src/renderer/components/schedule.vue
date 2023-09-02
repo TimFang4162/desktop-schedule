@@ -2,8 +2,8 @@
 <template>
   <v-navigation-drawer
     permanent app
-    :width="config.config.navigationDrawerWidth / (config.config.scale / config.config.scale) + '%'"
-    :height="100 / (config.config.scale / config.config.scale) + '%'" :right="config.config.navigationDrawerPositionR"
+    :width="config.settings['general.navigationDrawerWidth'] / (config.settings['general.scale'] / config.settings['general.scale']) + '%'"
+    :height="100 / (config.settings['general.scale'] / config.settings['general.scale']) + '%'" :right="config.settings['general.navigationDrawerPositionR']"
   >
     <!-- force update -->
     <v-list-item>
