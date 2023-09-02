@@ -85,14 +85,14 @@
               <v-menu offset-y>
                 <template #activator="{ on, attrs }">
                   <v-text-field
-                    v-bind="attrs" readonly :value="clickActions[tempConfig.courses[editCourseId].action].hint"
-                    v-on="on"
+                    v-bind="attrs" readonly
+                    :value="clickActions[tempConfig.courses[editCourseId].action].hint" v-on="on"
                   />
                 </template>
                 <v-list>
                   <v-list-item
-                    v-for="(each, index) in clickActions" :key="index"
-                    link @click="tempConfig.courses[editCourseId].action = index"
+                    v-for="(each, index) in clickActions" :key="index" link
+                    @click="tempConfig.courses[editCourseId].action = index"
                   >
                     <v-list-item-title>{{ each.hint }}</v-list-item-title>
                   </v-list-item>
@@ -301,14 +301,19 @@ export default {
       this.editCourses = true
     },
     addCourse () {
-      const length = Object.entries(this.tempConfig.courses).length
-      this.$set(this.tempConfig.courses, String(length), {
-        name: '',
+      let maxId = -1
+      for (const each in this.tempConfig.courses) {
+        if (each > maxId) {
+          maxId = each
+        }
+      }
+      this.$set(this.tempConfig.courses, String(maxId + 1), {
+        name: '新建课程',
         action: 'doNothing',
         config: {
         }
       })
-      this.editCourseId = String(length)
+      this.editCourseId = String(maxId + 1)
     },
     async deleteCourse (courseId) {
       let unused = true

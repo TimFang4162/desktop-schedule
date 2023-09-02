@@ -310,7 +310,7 @@
         "sun": []
     },
     "settings":{
-        "app.schemaVersion": "1.0.0",
+        "app.schemaVersion": "1.0.4",
         "general.startWithSystem": false,
         "general.windowClickThrough": false,
         "general.scale": 100,
