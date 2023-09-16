@@ -3,6 +3,12 @@ const fs = require('fs')
 const { app, dialog } = require('electron')
 
 export const compareVersion = (preVersion = '', lastVersion = '') => {
+  if (preVersion[0] === 'v') {
+    preVersion = preVersion.substring(1)
+  }
+  if (lastVersion[0] === 'v') {
+    lastVersion = lastVersion.substring(1)
+  }
   const sources = preVersion.split('.')
   const dests = lastVersion.split('.')
   const maxL = Math.max(sources.length, dests.length)
