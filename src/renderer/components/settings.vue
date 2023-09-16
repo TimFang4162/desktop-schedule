@@ -40,13 +40,11 @@
         </v-simple-table>
         <template v-else>
           <v-row align="center">
-            <v-col cols="6">
-              <v-subheader>
-                编辑配置
-              </v-subheader>
+            <v-col cols="4">
+              编辑配置
             </v-col>
 
-            <v-col cols="6">
+            <v-col cols="8">
               <v-select
                 v-model="editCourseId" :items="Object.entries(tempConfig.courses)" item-text="[1].name"
                 item-value="[0]" label="Select" single-line
@@ -65,102 +63,42 @@
             </v-icon>
             删除 {{ tempConfig.courses[editCourseId].name }}
           </v-btn>
-          <v-row align="center">
-            <v-col cols="6">
-              <v-subheader>
-                课程名称
-              </v-subheader>
-            </v-col>
-
-            <v-col cols="6">
-              <v-text-field v-model="tempConfig.courses[editCourseId].name" />
-            </v-col>
-            <v-col cols="6">
-              <v-subheader>
-                点击事件
-              </v-subheader>
-            </v-col>
-
-            <v-col cols="6">
-              <v-menu offset-y>
-                <template #activator="{ on, attrs }">
-                  <v-text-field
-                    v-bind="attrs" readonly
-                    :value="clickActions[tempConfig.courses[editCourseId].action].hint" v-on="on"
-                  />
-                </template>
-                <v-list>
-                  <v-list-item
-                    v-for="(each, index) in clickActions" :key="index" link
-                    @click="tempConfig.courses[editCourseId].action = index"
-                  >
-                    <v-list-item-title>{{ each.hint }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-            </v-col>
-            <template v-if="tempConfig.courses[editCourseId].action === 'openFtp'">
-              <v-col cols="6">
-                <v-subheader>
-                  FTP 服务器 IP
-                </v-subheader>
-              </v-col>
-
-              <v-col cols="6">
-                <v-text-field v-model="tempConfig.courses[editCourseId].config.$ftp_ip" />
-              </v-col>
-              <v-col cols="6">
-                <v-subheader>
-                  FTP 账号
-                </v-subheader>
-              </v-col>
-
-              <v-col cols="6">
-                <v-text-field v-model="tempConfig.courses[editCourseId].config.$ftp_user" />
-              </v-col>
-              <v-col cols="6">
-                <v-subheader>
-                  FTP 密码
-                </v-subheader>
-              </v-col>
-
-              <v-col cols="6">
-                <v-text-field v-model="tempConfig.courses[editCourseId].config.$ftp_pwd" />
-              </v-col>
-              <v-col cols="6">
-                <v-subheader>
-                  FTP 路径
-                </v-subheader>
-              </v-col>
-
-              <v-col cols="6">
-                <v-text-field v-model="tempConfig.courses[editCourseId].config.$ftp_folder" />
-              </v-col>
+          <v-text-field v-model="tempConfig.courses[editCourseId].name" label="课程名称" />
+          <v-menu offset-y>
+            <template #activator="{ on, attrs }">
+              <v-text-field
+                v-bind="attrs" readonly label="点击事件" append-icon="mdi-menu-down"
+                :value="clickActions[tempConfig.courses[editCourseId].action].hint" v-on="on"
+              />
             </template>
-            <template v-if="tempConfig.courses[editCourseId].action === 'runCommand'">
-              <v-col cols="6">
-                <v-subheader>
-                  命令行
-                </v-subheader>
-              </v-col>
-
-              <v-col cols="6">
-                <v-text-field v-model="tempConfig.courses[editCourseId].config.$command" />
-              </v-col>
-            </template>
-            <template v-if="tempConfig.courses[editCourseId].action === 'openPath'">
-              <v-col cols="6">
-                <v-subheader>
-                  文件夹路径
-                </v-subheader>
-              </v-col>
-
-              <v-col cols="6">
-                <v-text-field v-model="tempConfig.courses[editCourseId].config.$path" />
+            <v-list>
+              <v-list-item
+                v-for="(each, index) in clickActions" :key="index" link
+                @click="tempConfig.courses[editCourseId].action = index"
+              >
+                <v-list-item-title>{{ each.hint }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+          <template v-if="tempConfig.courses[editCourseId].action === 'openFtp'">
+            <v-text-field v-model="tempConfig.courses[editCourseId].config.$ftp_ip" label="FTP 服务器 IP" />
+            <v-text-field v-model="tempConfig.courses[editCourseId].config.$ftp_user" label="FTP 账号" />
+            <v-text-field v-model="tempConfig.courses[editCourseId].config.$ftp_pwd" label="FTP 密码" />
+            <v-text-field v-model="tempConfig.courses[editCourseId].config.$ftp_folder" label="FTP 路径" />
+            命令行 explorer.exe ftp://{{ tempConfig.courses[editCourseId].config.$ftp_user }}:{{
+              tempConfig.courses[editCourseId].config.$ftp_pwd }}@{{ tempConfig.courses[editCourseId].config.$ftp_ip }}/{{
+              tempConfig.courses[editCourseId].config.$ftp_folder }}
+          </template>
+          <template v-if="tempConfig.courses[editCourseId].action === 'runCommand'">
+            <v-text-field v-model="tempConfig.courses[editCourseId].config.$command" label="命令行" />
+          </template>
+          <template v-if="tempConfig.courses[editCourseId].action === 'openPath'">
+            <v-text-field v-model="tempConfig.courses[editCourseId].config.$path" label="文件夹路径">
+              <template #append-outer>
                 <v-btn text @click="selectFolder()">选择</v-btn>
-              </v-col>
-            </template>
-          </v-row>
+              </template>
+            </v-text-field>
+          </template>
         </template>
       </v-card-text>
       <v-card-title class="text-h6">
@@ -295,7 +233,7 @@ export default {
     async _saveTempConfig () {
       await ipcRenderer.send('saveConfig', this.tempConfig)
       await this.$nuxt.refresh()
-      window.location.reload()
+      // window.location.reload()
     },
     coursesOnEdit () {
       this.editCourseId = Object.entries(this.tempConfig.courses)[0][0]

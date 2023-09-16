@@ -4,82 +4,55 @@
             "name": "语文",
             "action": "openFtp",
             "config": {
-                "$folder": "语文",
-                "$ftp_user": "ywtmy",
-                "$ftp_pwd": "ywtmy"
+                "$ftp_ip": "ftp.example.com",
+                "$ftp_user": "root",
+                "$ftp_pwd": "password",
+                "$ftp_folder": "一个文件夹/123"
             }
         },
         "1": {
             "name": "数学",
-            "action": "openFtp",
+            "action": "runCommand",
             "config": {
-                "$folder": "数学",
-                "$ftp_user": "sxjwx",
-                "$ftp_pwd": "sxjwx"
+                "$command": "open \"https://github.com/\""
             }
         },
         "2": {
             "name": "英语",
-            "action": "openFtp",
+            "action": "openPath",
             "config": {
-                "$folder": "英语",
-                "$ftp_user": "yycyj",
-                "$ftp_pwd": "yycyj"
+                "$path": "C:\\Program Files"
             }
         },
         "3": {
             "name": "物理",
-            "action": "openFtp",
-            "config": {
-                "$folder": "物理",
-                "$ftp_user": "wlcpz",
-                "$ftp_pwd": "wlcpz"
-            }
+            "action": "doNothing",
+            "config": {}
         },
         "4": {
             "name": "化学",
-            "action": "openFtp",
-            "config": {
-                "$folder": "化学",
-                "$ftp_user": "hxlwt",
-                "$ftp_pwd": "hxlwt"
-            }
+            "action": "doNothing",
+            "config": {}
         },
         "5": {
             "name": "生物",
-            "action": "openFtp",
-            "config": {
-                "$folder": "生物",
-                "$ftp_user": "swyj",
-                "$ftp_pwd": "swyj"
-            }
+            "action": "doNothing",
+            "config": {}
         },
         "6": {
             "name": "政治",
-            "action": "openFtp",
-            "config": {
-                "$folder": "政治",
-                "$ftp_user": "zzwjy",
-                "$ftp_pwd": "zzwjy"
-            }
+            "action": "doNothing",
+            "config": {}
         },
         "7": {
             "name": "历史",
-            "action": "openFtp",
-            "config": {
-                "$folder": "历史",
-                "$ftp_user": "lswsy",
-                "$ftp_pwd": "lswsy"
-            }
+            "action": "doNothing",
+            "config": {}
         },
         "8": {
             "name": "地理",
-            "action": "openFtp",
-            "config": {
-                "$folder": "地理",
-                "$ftp_user": "dlzgq",
-                "$ftp_pwd": "dlzgq"
-            }
+            "action": "doNothing",
+            "config": {}
         },
         "9": {
             "name": "心理",
@@ -87,7 +60,7 @@
             "config": {}
         },
         "10": {
-            "name": "体育",
+            "name": "美术",
             "action": "doNothing",
             "config": {}
         },
@@ -97,6 +70,26 @@
             "config": {
                 "$command": "nautilus /home/timmy/CodeSpace"
             }
+        },
+        "12": {
+            "name": "体育",
+            "action": "doNothing",
+            "config": {}
+        },
+        "13": {
+            "name": "自修",
+            "action": "doNothing",
+            "config": {}
+        },
+        "14": {
+            "name": "走班(1)",
+            "action": "doNothing",
+            "config": {}
+        },
+        "15": {
+            "name": "走班(2)",
+            "action": "doNothing",
+            "config": {}
         }
     },
     "schedule": {
@@ -309,13 +302,13 @@
         ],
         "sun": []
     },
-    "settings":{
+    "settings": {
         "app.schemaVersion": "1.0.4",
         "general.startWithSystem": false,
         "general.windowClickThrough": false,
         "general.scale": 100,
-        "general.navigationDrawerWidth":12,
+        "general.navigationDrawerWidth": 13,
         "general.navigationDrawerPositionR": false,
-        "preference.theme":"dark"
+        "preference.theme": "dark"
     }
 }

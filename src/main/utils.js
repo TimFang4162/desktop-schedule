@@ -101,7 +101,7 @@ export const migrateConfig = () => {
   switch (compareVersion(configVersion, appVersion)) {
   case 1: {
     dialog.showErrorBox('Error',
-      `配置文件版本(${configVersion})高于程序版本(&{appVersion})，它可能由更新的课程表生成。请下载最新的课程表并重试。`)
+      `配置文件版本(${configVersion})高于程序版本(${appVersion})，它可能由更新的课程表生成。请下载最新的课程表并重试。`)
     app.exit()
     break
   }

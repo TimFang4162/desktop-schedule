@@ -7,7 +7,7 @@
   >
     <v-card>
       <v-card-title class="text-h5">
-        About
+        关于
       </v-card-title>
       <v-card-text>
         Desktop Schedule {{ metadata.appVersion }}<br>
