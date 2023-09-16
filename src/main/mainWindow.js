@@ -6,7 +6,7 @@ const { ipcMain, BrowserWindow, shell, app, dialog } = require('electron')
 
 utils.migrateConfig()
 
-function courseClick(course) {
+function courseClick (course) {
   if (course.action === 'openFtp') {
     exec(`explorer.exe ftp://${course.config.$ftp_user}:${course.config.$ftp_pwd}@${course.config.$ftp_ip}/${course.config.$ftp_folder}`)
   }
