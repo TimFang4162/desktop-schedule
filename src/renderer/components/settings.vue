@@ -295,6 +295,7 @@ export default {
     async _saveTempConfig () {
       await ipcRenderer.send('saveConfig', this.tempConfig)
       await this.$nuxt.refresh()
+      window.location.reload()
     },
     coursesOnEdit () {
       this.editCourseId = Object.entries(this.tempConfig.courses)[0][0]

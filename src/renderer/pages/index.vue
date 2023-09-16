@@ -1,5 +1,5 @@
 <template>
-  <v-app :style="'background: transparent; zoom: '+config.settings['general.scale']/100+';'">
+  <v-app :style="'background: transparent; zoom: ' + config.settings['general.scale'] / 100 + ';'">
     <schedule class="bg-t" :config="config" />
     <v-main id="click-through">
       <!-- <v-container>
@@ -25,7 +25,7 @@ export default {
     this.$vuetify.theme.dark = true
     const el = document.getElementById('click-through')
     el.addEventListener('mouseenter', () => {
-      if (this.config.config.windowClickThrough) {
+      if (this.config.settings['general.windowClickThrough']) {
         ipcRenderer.send('set-ignore-mouse-events', true, { forward: true })
       } else {
         ipcRenderer.send('set-ignore-mouse-events', false)
@@ -43,11 +43,16 @@ export default {
 .bg-t {
   background: #0003 !important;
 }
+
 html {
   background: transparent;
 }
+
 .theme--dark.v-toolbar.v-sheet {
   background: transparent;
 }
-::-webkit-scrollbar { width: 0 !important }
+
+::-webkit-scrollbar {
+  width: 0 !important
+}
 </style>
