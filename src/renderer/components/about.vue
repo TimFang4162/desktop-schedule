@@ -97,9 +97,9 @@ export default {
         .then(data => {
           this.updateJson = data
           if (data.draft === false) {
-            if (this.compareVersion(this.metadata.appVersion, data.tag_name) == -1) {
+            if (this.compareVersion(this.metadata.appVersion, data.tag_name) === -1) {
               this.updateAvaliable = 'true'
-            } else if (this.compareVersion(this.metadata.appVersion, data.tag_name) == 0) {
+            } else if (this.compareVersion(this.metadata.appVersion, data.tag_name) === 0) {
               this.updateAvaliable = 'false'
             }
           }
