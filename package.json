@@ -1,7 +1,7 @@
 {
   "name": "desktop-schedule",
   "version": "1.0.4",
-  "description": "An electron-nuxt project",
+  "description": "简洁而不失优雅的桌面课程表",
   "main": "./dist/main/index.js",
   "scripts": {
     "dev": "node gen-meta.js && node .electron-nuxt/dev.js",

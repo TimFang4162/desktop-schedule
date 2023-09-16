@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <v-navigation-drawer
-    permanent app
+    permanent app touchless
     :width="config.settings['general.navigationDrawerWidth'] / (config.settings['general.scale'] / config.settings['general.scale']) + '%'"
     :height="100 / (config.settings['general.scale'] / config.settings['general.scale']) + '%'" :right="config.settings['general.navigationDrawerPositionR']"
   >
