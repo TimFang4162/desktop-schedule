@@ -9,20 +9,37 @@
         Desktop Schedule {{ metadata.appVersion }}{{ updateAvaliable === 'false' ? " 最新" : "" }}<br>
         编译于 {{ metadata.compileTime }}<br>
         <a
-          href="https://github.com/TimFang4162/desktop-schedule/"
+          @click="openExternal('https://github.com/TimFang4162/desktop-schedule/')"
         >https://github.com/TimFang4162/desktop-schedule/</a><br>
 
         简洁而不失优雅的桌面课程表<br><br>
-      </v-card-text>
-      <template v-if="updateAvaliable === 'true'">
-        <v-card-title class="text-h5">
+        <v-btn
+          :loading="updateAvaliable === 'pending'"
+          :disabled="updateAvaliable === 'pending'"
+          icon @click="fetchUpdate()"
+        >
+          <v-icon>
+            mdi-reload
+          </v-icon>
+        </v-btn>
+        <template v-if="updateAvaliable === 'pending'">
+          正在检查更新
+        </template>
+        <template v-if="updateAvaliable === 'true'">
           更新可用: {{ updateJson.tag_name }}
-        </v-card-title>
-        <v-card-text>
-          {{ updateJson.body }}<br>
-          <a :href="updateJson.html_url">前往下载</a>
-        </v-card-text>
-      </template>
+          <template v-if="updateJson.body !== ''">
+            <br>
+            {{ updateJson.body }}<br>
+          </template>
+          <a @click="openExternal(updateJson.html_url)">前往下载</a>
+        </template>
+        <template v-if="updateAvaliable === 'false'">
+          当前为最新版本
+        </template>
+        <template v-if="updateAvaliable === 'failed'">
+          无法检查更新。请确保与 github.com 连接通畅
+        </template>
+      </v-card-text>
 
       <v-card-actions>
         <v-spacer />
@@ -49,6 +66,9 @@ export default {
     this.fetchUpdate()
   },
   methods: {
+    openExternal (url) {
+      ipcRenderer.send('openExternal', url)
+    },
     compareVersion (preVersion = '', lastVersion = '') {
       if (preVersion[0] === 'v') {
         preVersion = preVersion.substring(1)
@@ -76,6 +96,7 @@ export default {
       return result
     },
     fetchUpdate () {
+      this.updateAvaliable = 'pending'
       fetch('https://api.github.com/repos/TimFang4162/desktop-schedule/releases/latest', {
         headers: {
           Accept: 'application/vnd.github+json',
@@ -93,7 +114,10 @@ export default {
             }
           }
         })
-        .catch(console.error)
+        .catch(error => {
+          this.updateAvaliable = 'failed'
+          console.error(error)
+        })
     },
     closeDialog () {
       this.$emit('close')

@@ -49,6 +49,9 @@ winHandler.onCreated(_browserWindow => {
   ipcMain.on('openConfigFolder', (event, data) => {
     shell.showItemInFolder(path.join(app.getPath('userData'), 'schedule-config.json'))
   })
+  ipcMain.on('openExternal', (event, data) => {
+    shell.openExternal(data)
+  })
   ipcMain.on('set-ignore-mouse-events', (event, ...args) => {
     const win = BrowserWindow.fromWebContents(event.sender)
     win.setIgnoreMouseEvents(...args)
