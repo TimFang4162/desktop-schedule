@@ -13,7 +13,6 @@
         >https://github.com/TimFang4162/desktop-schedule/</a><br>
 
         简洁而不失优雅的桌面课程表<br><br>
-        {{ hitokoto }}
       </v-card-text>
       <template v-if="updateAvaliable === 'true'">
         <v-card-title class="text-h5">
@@ -42,13 +41,11 @@ export default {
   props: ['aboutDialog'],
   data: () => ({
     metadata: {},
-    hitokoto: '',
     updateJson: {},
     updateAvaliable: 'unknown'
   }),
   async mounted () {
     this.metadata = await ipcRenderer.invoke('getMetadata')
-    this.fetchHitokoto()
     this.fetchUpdate()
   },
   methods: {
@@ -77,14 +74,6 @@ export default {
         }
       }
       return result
-    },
-    fetchHitokoto () {
-      fetch('https://v1.hitokoto.cn')
-        .then(response => response.json())
-        .then(data => {
-          this.hitokoto = data.hitokoto
-        })
-        .catch(console.error)
     },
     fetchUpdate () {
       fetch('https://api.github.com/repos/TimFang4162/desktop-schedule/releases/latest', {
