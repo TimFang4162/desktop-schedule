@@ -1,4 +1,7 @@
-# Desktop Schedule 桌面课程表
+<img width="175" src="images/icon.png" alt="Desktop Schedule" align="right">
+<div align="left">
+<h1>Desktop Schedule 桌面课程表</h1>
+</div>
 
 > 简洁而不失优雅的桌面课程表
 
