@@ -61,7 +61,8 @@
         "resizable": true,
         "title": "桌面课程表",
         "width": 800,
-        "transparent": true
+        "transparent": true,
+        "decorations":false
       }
     ]
   }
