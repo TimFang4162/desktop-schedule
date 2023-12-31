@@ -7,7 +7,7 @@
 ### 要求
 
 1. 使用 node v16
-2. 安装 [Rust 及其依赖](https://tauri.app/v1/guides/getting-started/prerequisites)
+2. 安装 [Tauri 及其依赖](https://tauri.app/v1/guides/getting-started/prerequisites)
 
 ### 安装
 
